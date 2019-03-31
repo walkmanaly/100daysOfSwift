@@ -71,3 +71,31 @@ age = [60, 70, 65]
 var times = Set<String>()
 times = ["min", "hour", "second"]
 
+// enum枚举
+enum Result {
+    case success
+    case failure
+}
+
+let result1 = Result.success
+let result2 = Result.failure
+
+// 枚举关联值,
+enum Activity {
+    case eating(food: String)
+    case talking(topic: String)
+    case sleepping
+}
+
+let sleep = Activity.sleepping
+let eat = Activity.eating(food: "orange")
+let talk = Activity.talking(topic: "football")
+
+// rawValue
+enum Planet: Int {
+    case earth = 2
+    case mars
+    case nues
+}
+
+let planetInt = Planet.mars.rawValue
