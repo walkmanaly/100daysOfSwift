@@ -49,3 +49,6 @@ let myInfo: [String: Any] = [
     "age": 28,
     "score": 95.5
 ]
+
+// 获取字典值，如果取不到，返回默认值
+myInfo["weight", default: "unknow"]
