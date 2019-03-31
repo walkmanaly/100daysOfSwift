@@ -33,3 +33,19 @@ var myName = (first: "Nick", last: "Stark")
 myName.0 = "Stark"
 myName.last = "Nick"
 myName
+
+// Dictionary
+
+let myInfomation = [
+    "height": 62,
+    "age": 28
+]
+
+myInfomation["height"]
+myInfomation["age"]
+
+let myInfo: [String: Any] = [
+    "name": "Nick",
+    "age": 28,
+    "score": 95.5
+]
