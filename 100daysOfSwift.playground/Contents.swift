@@ -52,3 +52,22 @@ let myInfo: [String: Any] = [
 
 // 获取字典值，如果取不到，返回默认值
 myInfo["weight", default: "unknow"]
+
+// 创建空的集合（array，set，dictionary）
+// 字典
+var teams = [String: String]()
+teams["Nick"] = "good one"
+
+var team = Dictionary<String, String>()
+teams["name"] = "vitory"
+
+// 数组
+var ages = [Int]()
+ages = [18, 28, 20]
+
+var age = Array<Int>()
+age = [60, 70, 65]
+// 集合
+var times = Set<String>()
+times = ["min", "hour", "second"]
+
