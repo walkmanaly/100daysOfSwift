@@ -23,3 +23,13 @@ intArr[4]
 let color1 = Set(["red", "blue", "orange"])
 
 let color2 = Set(["red", "blue", "orange", "red", "blue"])
+
+// tuple
+let name = (first: "Talor", last: "Swift")
+name.first
+name.1
+
+var myName = (first: "Nick", last: "Stark")
+myName.0 = "Stark"
+myName.last = "Nick"
+myName
