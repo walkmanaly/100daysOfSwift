@@ -1,6 +1,6 @@
-import UIKit
+//: [Previous](@previous)
 
-var str = "Hello, playground"
+import Foundation
 
 // Array
 
@@ -15,7 +15,6 @@ food[2]
 let intArr: [Int] = [1, 2, 3, 4, 5]
 
 intArr[4]
-
 
 // Sets
 // 与数组区别：1、无序 2、值不重复
@@ -99,3 +98,5 @@ enum Planet: Int {
 }
 
 let planetInt = Planet.mars.rawValue
+
+//: [Next](@next)
