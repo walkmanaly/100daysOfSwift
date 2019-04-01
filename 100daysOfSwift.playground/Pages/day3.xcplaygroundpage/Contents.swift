@@ -56,4 +56,15 @@ if firstScore + secondScore == 15 {
     print("something wrong")
 }
 
+if firstScore > 18 && secondScore > 18 {
+    print("both is over 18")
+}
+
+if firstScore > 18 || secondScore > 18 {
+    print("one of them is over 18")
+}
+
+// 三目运算符
+print(firstScore > secondScore ? "greater than" : "less than")
+
 //: [Next](@next)
