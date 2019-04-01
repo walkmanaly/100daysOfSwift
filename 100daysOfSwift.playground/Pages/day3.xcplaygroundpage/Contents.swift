@@ -26,5 +26,34 @@ let names2 = ["arya", "branden"]
 
 let allName = names1 + names2
 
+// 复合运算符
+var score = 80
+score -= 3
+
+var content = "hello there, ned stark is"
+content += " a brave man"
+
+// 比较运算符
+/*
+var firstNum = 5
+var secondNum = 6
+
+firstName == secondScore
+firstName != secondScore
+
+firstName > secondScore
+firstName <= secondScore
+
+"Nick" > "Stark"
+ */
+
+// if else
+if firstScore + secondScore == 15 {
+    print("yes correct")
+} else if firstScore > secondScore {
+    print("good")
+} else {
+    print("something wrong")
+}
 
 //: [Next](@next)
