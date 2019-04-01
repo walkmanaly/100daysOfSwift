@@ -83,4 +83,15 @@ default:
     print("don't know")
 }
 
+// range 范围值
+let rangscore = 90
+switch rangscore {
+case 0..<60:
+    print("that's too bad")
+case 60...90:
+    print("that's ok")
+default:
+    print("great!")
+}
+
 //: [Next](@next)
