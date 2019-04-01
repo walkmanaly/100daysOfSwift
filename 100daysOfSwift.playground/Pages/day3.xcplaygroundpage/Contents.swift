@@ -67,4 +67,20 @@ if firstScore > 18 || secondScore > 18 {
 // 三目运算符
 print(firstScore > secondScore ? "greater than" : "less than")
 
+// switch
+
+let wether = "sunny"
+switch wether {
+case "rain":
+    print("thats too bad")
+case "sunny":
+    print("good day")
+    // 跳过一个switch
+    fallthrough
+case "snow":
+    print("much worst")
+default:
+    print("don't know")
+}
+
 //: [Next](@next)
