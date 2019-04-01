@@ -2,6 +2,14 @@
 
 import Foundation
 
+/*
+ today learn types of:
+    Array
+    Dictionary
+    Set
+    Tuple
+    Enum
+ */
 // Array
 
 let orange = "orange"
