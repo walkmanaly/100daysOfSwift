@@ -25,4 +25,14 @@ while student <= 10 {
     student += 1
 }
 
+// repeat执行一次后，再判断循环
+var person = 1
+repeat {
+    print("person \(person)")
+    person += 1
+} while person <= 10
+
+
+
+
 //: [Next](@next)
