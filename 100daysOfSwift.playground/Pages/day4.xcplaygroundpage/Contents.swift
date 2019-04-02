@@ -44,4 +44,15 @@ while countDown >= 0 {
 
 print("I's boring, end countDown!")
 
+// 跳出外层循环，当内层条件满足时，跳出外层循环（在外层循环前面添加一个label，符合条件时，break此label）
+outLoop: for i in 1...10 {
+    for j in 1...10 {
+        print("\(i) * \(j) = \(i * j)")
+        if i * j == 50 {
+            print("break the loop!")
+            break outLoop
+        }
+    }
+}
+
 //: [Next](@next)
