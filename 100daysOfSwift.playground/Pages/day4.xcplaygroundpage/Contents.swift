@@ -32,7 +32,16 @@ repeat {
     person += 1
 } while person <= 10
 
+// break 跳出循环语句
+var countDown = 11
+while countDown >= 0 {
+    print("begin count \(countDown)")
+    if countDown == 5 {
+        break
+    }
+    countDown -= 1
+}
 
-
+print("I's boring, end countDown!")
 
 //: [Next](@next)
