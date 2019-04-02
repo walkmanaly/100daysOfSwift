@@ -55,4 +55,13 @@ outLoop: for i in 1...10 {
     }
 }
 
+// continue忽略某些item
+let teachers = 1...10
+for i in teachers {
+    if i % 2 == 0 { // 打印奇数
+        continue
+    }
+    print(i)
+}
+
 //: [Next](@next)
