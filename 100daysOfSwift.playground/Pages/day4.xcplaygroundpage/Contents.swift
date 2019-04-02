@@ -18,4 +18,11 @@ for _ in 1..<6 {
     print("let's loop")
 }
 
+// while循环
+var student = 0
+while student <= 10 {
+    print("student no. \(student)")
+    student += 1
+}
+
 //: [Next](@next)
