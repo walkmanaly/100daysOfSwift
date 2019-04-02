@@ -64,4 +64,14 @@ for i in teachers {
     print(i)
 }
 
+// 无限循环
+var isFoever = 0
+while true {
+    print("run foever \(isFoever) ?")
+    isFoever += 1
+    if isFoever == 20 {
+        break
+    }
+}
+
 //: [Next](@next)
