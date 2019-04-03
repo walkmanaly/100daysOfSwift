@@ -43,5 +43,16 @@ func greeting(_ name: String) {
 
 greeting("Nick")
 
+// 参数含有默认值，在调用的时候可以不传此参数(给nicely一个默认值true，在调用时可以不传，传递时用传递值)
+func greetings(_ person: String, nicely: Bool = true) {
+    if nicely {
+        print("Greetings \(person)")
+    } else {
+        print("Greetings again \(person)")
+    }
+}
+
+greetings("Nicky")
+greetings("Nicky", nicely: false)
 
 //: [Next](@next)
