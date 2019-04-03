@@ -36,4 +36,12 @@ func sayHello(to name: String) {
 
 sayHello(to: "Swift")
 
+// 省略参数label
+func greeting(_ name: String) {
+    print("Hello, \(name)!")
+}
+
+greeting("Nick")
+
+
 //: [Next](@next)
