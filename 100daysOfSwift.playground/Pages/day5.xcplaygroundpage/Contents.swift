@@ -29,4 +29,11 @@ func square(number: Int) -> Int {
 let result = square(number: 9)
 print("square result = \(result)")
 
+// 参数label:第一个位置to供外部调用使用，第二个name则是供方法内部使用
+func sayHello(to name: String) {
+    print("Hello, \(name)")
+}
+
+sayHello(to: "Swift")
+
 //: [Next](@next)
