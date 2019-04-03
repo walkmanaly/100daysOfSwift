@@ -64,4 +64,35 @@ func squares(numbers: Int...) {
 
 squares(numbers:1, 2, 3, 4, 5, 6, 7, 8)
 
+// 抛出异常的方法，注意写法：在返回参数符号前添加throws关键字！
+enum PasswordError: Error {
+    case obvious
+}
+
+func checkoutPassword(_ password: String) throws -> Bool {
+    if password == "password" {
+        throw PasswordError.obvious
+    } else {
+        return true
+    }
+}
+
+// 此处调用，如果抛出异常不做处理，程序会直接crash
+//checkoutPassword("password")
+
+// 对可能抛出异常的方法，d进行处理
+do {
+    try checkoutPassword("password")
+    print("That's OK!")
+} catch {
+    print("Ban!")
+}
+
+do {
+    try checkoutPassword("myPass")
+    print("That's OK!")
+} catch {
+    print("Ban!")
+}
+
 //: [Next](@next)
