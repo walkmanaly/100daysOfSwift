@@ -55,4 +55,13 @@ func greetings(_ person: String, nicely: Bool = true) {
 greetings("Nicky")
 greetings("Nicky", nicely: false)
 
+// 接收多参数的方法
+func squares(numbers: Int...) {
+    for number in numbers {
+        print("square \(number) = \(number * number)")
+    }
+}
+
+squares(numbers:1, 2, 3, 4, 5, 6, 7, 8)
+
 //: [Next](@next)
