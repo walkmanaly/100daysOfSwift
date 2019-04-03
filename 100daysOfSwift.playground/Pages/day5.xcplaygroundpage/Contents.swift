@@ -22,4 +22,11 @@ func squre(number: Int) {
 
 squre(number: 6)
 
+// 带参数和返回值的方法
+func square(number: Int) -> Int {
+    return number * number
+}
+let result = square(number: 9)
+print("square result = \(result)")
+
 //: [Next](@next)
