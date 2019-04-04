@@ -47,4 +47,21 @@ travelLearning {
     print("middle")
 }
 
+// 6、传递带参数的闭包
+func travalLearningWhat(what:(String) -> Void) {
+    print("learningWhat begin")
+    what("swift")
+    print("learningWhat end")
+}
+
+// 带参数的闭包做为参数传递给方法
+travalLearningWhat(what: { (what: String) in
+    print("I'm learning \(what).")
+})
+// 同上，这是尾随闭包写法
+travalLearningWhat { (what: String) -> Void in
+        print("learning \(what)")
+}
+
+
 //: [Next](@next)
