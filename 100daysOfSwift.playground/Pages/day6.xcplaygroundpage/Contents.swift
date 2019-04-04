@@ -25,5 +25,26 @@ let learningResult = { (something: String) -> String in
 let result = learningResult("swift")
 print(result)
 
+// 4、把闭包作为参数传递
+
+func travelLearning(learn:() -> Void) {
+    print("before")
+    learn()
+    print("after")
+}
+
+travelLearning(learn: learning)
+
+// 5、尾随闭包：如果传递给方法的最后一个参数是闭包，则可用此简写（尾随闭包是一种简写）
+
+travelLearning {
+    print("I'm learning swift!")
+}
+// 30-34 ==等价于== 40-42 行
+
+
+travelLearning {
+    print("middle")
+}
 
 //: [Next](@next)
