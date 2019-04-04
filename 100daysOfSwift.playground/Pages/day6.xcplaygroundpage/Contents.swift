@@ -72,11 +72,16 @@ func travalLearningResult(result: (String) -> String) {
 }
 
 travalLearningResult(result: { (something: String) -> String in
-    return something + "normal"
+    return something + " normal"
 })
 
 travalLearningResult { (something: String) -> String in
-    return something + "trailing"
+    return something + " trailing"
+}
+
+// 省略参数,此处代码等价于78-80行：swift知道接收的是一个String可以省略并使用默认参数$0;也知道要返回值，也可省略return
+travalLearningResult {
+    $0 + " omit parameters"
 }
 
 //: [Next](@next)
