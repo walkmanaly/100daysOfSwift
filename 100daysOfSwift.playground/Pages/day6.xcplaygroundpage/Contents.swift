@@ -17,12 +17,13 @@ let learningWhat = { (what: String) in
 
 learningWhat("swift")
 
-//let learningResult = { (something: String) -> String in
-//    var str = "hhh" + something
-//    return str
-//}
-//
-//let result = learningResult("ggg")
+// 3、带参数和返回值的闭包
+let learningResult = { (something: String) -> String in
+    return "Learn " + something
+}
+
+let result = learningResult("swift")
+print(result)
 
 
 //: [Next](@next)
