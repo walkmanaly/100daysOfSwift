@@ -63,5 +63,20 @@ travalLearningWhat { (what: String) -> Void in
         print("learning \(what)")
 }
 
+// 带参数和返回值的闭包作为参数传递给方法
+func travalLearningResult(result: (String) -> String) {
+    print("before time")
+    let res = result("swift")
+    print(res)
+    print("end time")
+}
+
+travalLearningResult(result: { (something: String) -> String in
+    return something + "normal"
+})
+
+travalLearningResult { (something: String) -> String in
+    return something + "trailing"
+}
 
 //: [Next](@next)
