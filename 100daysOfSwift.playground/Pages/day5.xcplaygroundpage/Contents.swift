@@ -104,4 +104,15 @@ func doubleInPlace(number: inout Int) {
 var inoutNum = 20
 doubleInPlace(number: &inoutNum)
 
+
+enum ArrayError: Error {
+    case negateIndex
+}
+func readItem(_ index: Int, from array: [String]) -> String {
+    if index < 0 {
+        throw ArrayError.negateIndex
+    }
+    return array[index]
+}
+
 //: [Next](@next)
