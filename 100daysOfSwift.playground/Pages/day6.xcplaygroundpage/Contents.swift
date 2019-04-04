@@ -10,4 +10,19 @@ let learning = {
 
 learning()
 
+// 2、带参数的闭包
+let learningWhat = { (what: String) in
+    print("I'm learning \(what).")
+}
+
+learningWhat("swift")
+
+//let learningResult = { (something: String) -> String in
+//    var str = "hhh" + something
+//    return str
+//}
+//
+//let result = learningResult("ggg")
+
+
 //: [Next](@next)
