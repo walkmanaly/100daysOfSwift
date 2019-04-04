@@ -63,7 +63,7 @@ travalLearningWhat { (what: String) -> Void in
         print("learning \(what)")
 }
 
-// 带参数和返回值的闭包作为参数传递给方法
+// 7、带参数和返回值的闭包作为参数传递给方法
 func travalLearningResult(result: (String) -> String) {
     print("before time")
     let res = result("swift")
@@ -79,9 +79,22 @@ travalLearningResult { (something: String) -> String in
     return something + " trailing"
 }
 
-// 省略参数,此处代码等价于78-80行：swift知道接收的是一个String可以省略并使用默认参数$0;也知道要返回值，也可省略return
+// 8、省略参数（带一个参数和一个返回值）,此处代码等价于78-80行：swift知道接收的是一个String可以省略并使用默认参数$0;也知道要返回值，也可省略return
 travalLearningResult {
     $0 + " omit parameters"
+}
+
+// 9、省略参数（带两个参数和一个返回值）
+func travalLearningResults (result: (String, Int) -> String) {
+    print("start learning")
+    let res = result("swift", 10)
+    print(res)
+    print("end learning")
+}
+
+// 尾随闭包写法
+travalLearningResults {
+    $0 + " \($1) hours"
 }
 
 //: [Next](@next)
