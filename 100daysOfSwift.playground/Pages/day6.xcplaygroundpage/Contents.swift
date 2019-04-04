@@ -40,7 +40,7 @@ travelLearning(learn: learning)
 travelLearning {
     print("I'm learning swift!")
 }
-// 30-34 ==等价于== 40-42 行
+// 6-9加30-34行 ==等价于== 40-42行 将传递给一个方法的闭包及其定义两步简写成一步 syntax sugar
 
 
 travelLearning {
