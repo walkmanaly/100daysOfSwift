@@ -58,6 +58,7 @@ func travalLearningWhat(what:(String) -> Void) {
 travalLearningWhat(what: { (what: String) in
     print("I'm learning \(what).")
 })
+travalLearningWhat(what: learningWhat)
 // 同上，这是尾随闭包写法
 travalLearningWhat { (what: String) -> Void in
         print("learning \(what)")
@@ -79,7 +80,7 @@ travalLearningResult { (something: String) -> String in
     return something + " trailing"
 }
 
-// 8、省略参数（带一个参数和一个返回值）,此处代码等价于78-80行：swift知道接收的是一个String可以省略并使用默认参数$0;也知道要返回值，也可省略return
+// 8、省略参数（带一个参数和一个返回值）,此处代码等价于79-81行：swift知道接收的是一个String可以省略并使用默认参数$0;也知道要返回值，也可省略return
 travalLearningResult {
     $0 + " omit parameters"
 }
@@ -95,6 +96,13 @@ func travalLearningResults (result: (String, Int) -> String) {
 // 尾随闭包写法
 travalLearningResults {
     $0 + " \($1) hours"
+}
+
+// 10、带一个参数没有返回值的closure作为返回值
+func action() -> (String) -> Void {
+    return {
+        print("the action is \($0)")
+    }
 }
 
 //: [Next](@next)
