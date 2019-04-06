@@ -85,7 +85,7 @@ print(testArr.sorted())
 print(testArr.removeLast())
 testArr.append("Jack")
 print(testArr[0])
-print(testArr.firstIndex(of: "Jack"))
+print(testArr.firstIndex(of: "Jack") ?? 0)
 
 // 8、初始化方法：struct编译器默认实现了一个初始化方法叫memberwise initializer，在创建实例时，所有属性都必须初始化
 struct User {
