@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios'>
+<playground version='6.0' target-platform='ios' executeOnSourceChanges='true'>
     <pages>
         <page name='day1'/>
         <page name='day2'/>
@@ -8,5 +8,6 @@
         <page name='day5'/>
         <page name='day6 and day7'/>
         <page name='day8 and day 9'/>
+        <page name='day10'/>
     </pages>
 </playground>
