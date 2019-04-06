@@ -142,7 +142,7 @@ struct Persons {
 }
 
 var onePerson = Persons(name: "Jack")
-// 不添加lazy关键字，每创建一个Persons实例都会调用；添加lazy关键字，在调用的时候才会执行（没用到时不创建，结束资源）
+// 11、不添加lazy关键字，每创建一个Persons实例都会调用；添加lazy关键字，在调用的时候才会执行（没用到时不创建，结束资源）
 onePerson.desc
 
 // static属性：在struct中，static关键字标明的变量（相当于类属性），区别于实例变量。
@@ -160,5 +160,24 @@ var oneStudent = Student("Nick")
 print(Student.classMateCount)
 var twoStudent = Student("Rose")
 print(Student.classMateCount)
+
+// 12、访问控制
+struct Teacher {
+    private var id: String
+    init(id: String) {
+        self.id = id
+    }
+    func teacherID() -> String {
+        return "teacherID is \(id)"
+    }
+}
+
+var teacher = Teacher(id: "12345")
+// print(teacher.id)
+// 默认为public，外部可以随意修改
+// teacher.id = "6789"
+// print(teacher.id)
+// 添加private之后，外部不能修改id变量,添加方法访问
+print(teacher.teacherID())
 
 //: [Next](@next)
