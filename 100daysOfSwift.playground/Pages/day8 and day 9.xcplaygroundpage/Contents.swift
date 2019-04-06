@@ -145,5 +145,20 @@ var onePerson = Persons(name: "Jack")
 // 不添加lazy关键字，每创建一个Persons实例都会调用；添加lazy关键字，在调用的时候才会执行（没用到时不创建，结束资源）
 onePerson.desc
 
+// static属性：在struct中，static关键字标明的变量（相当于类属性），区别于实例变量。
+struct Student {
+    static var classMateCount = 0
+    var name: String
+    init(_ name: String) {
+        self.name = name
+        Student.classMateCount += 1 // 使用Student访问classMateCount属性。
+    }
+}
+
+print(Student.classMateCount)
+var oneStudent = Student("Nick")
+print(Student.classMateCount)
+var twoStudent = Student("Rose")
+print(Student.classMateCount)
 
 //: [Next](@next)
