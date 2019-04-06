@@ -48,4 +48,34 @@ class Puppy: Dog {
 let puppy = Puppy(name: "wangwang")
 print(puppy.name)
 
+// 3、方法重载 override
+class Person {
+    func reading() {
+        print("I'm reading book")
+    }
+}
+
+class Student: Person {
+    override func reading() {
+        print("Doing Homework")
+    }
+}
+
+let per = Person()
+let stu = Student()
+per.reading()
+stu.reading()
+
+// 4、final类：不允许被继承，也不允许修改其方法行为
+final class Teacher {
+    var name: String
+    init(name: String) {
+        self.name = name
+    }
+    
+    func teach() {
+        print("begin teach")
+    }
+}
+
 //: [Next](@next)
