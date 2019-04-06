@@ -87,4 +87,31 @@ testArr.append("Jack")
 print(testArr[0])
 print(testArr.firstIndex(of: "Jack"))
 
+// 8、初始化方法：struct编译器默认实现了一个初始化方法叫memberwise initializer，在创建实例时，所有属性都必须初始化
+struct User {
+    var name: String
+    var age: Int
+    /* 实际上，编译器生成了这些代码
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+    */
+}
+
+let nick = User(name: "Nick", age: 18)
+
+// 如果你手动实现了init方法，则调用手动实现，不再调用默认生成的初始化方法
+struct Users {
+    var name: String
+    var age: Int
+    init() {
+        name = "Nick"
+        age = 18
+    }
+}
+
+let nicks = Users()
+print("nicks name:\(nicks.name), age: \(nicks.age)")
+
 //: [Next](@next)
