@@ -111,7 +111,19 @@ struct Users {
     }
 }
 
-let nicks = Users()
-print("nicks name:\(nicks.name), age: \(nicks.age)")
+var nicks = Users()
+nicks.name = "Rose"
+print("nicks name:\(nicks.name), age:\(nicks.age)")
+
+// 9、self指向当前实例
+struct People {
+    var name: String
+    var age: Int
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
+    }
+    // self可以更清楚分别出self.name表示属性，而name则表示参数
+}
 
 //: [Next](@next)
