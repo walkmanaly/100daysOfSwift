@@ -2,7 +2,7 @@
 
 import Foundation
 
-// struct 创建struct的实例如果为let则该实例的属性也不能修改
+// 1、struct 创建struct的实例如果为let则该实例的属性也不能修改
 struct Sport {
     var name: String
 }
@@ -12,7 +12,7 @@ print(sport.name)
 sport.name = "football"
 print(sport.name)
 
-// 计算型属性：并不存储值，而是通过计算其他属性得到的结果返回值
+// 2、计算型属性：并不存储值，而是通过计算其他属性得到的结果返回值
 struct Sports {
     var name: String
     var isOlynpicSport: Bool
@@ -28,7 +28,7 @@ struct Sports {
 let sports = Sports(name:"football", isOlynpicSport: true)
 print(sports.fullName)
 
-// 属性观察，属性在赋值前调用willSet，赋值后调用didSet。注意，在初始化时（创建实例时的属性值）不会触发属性观察的方法
+// 3、属性观察，属性在赋值前调用willSet，赋值后调用didSet。注意，在初始化时（创建实例时的属性值）不会触发属性观察的方法
 struct Progress {
     var name: String
     var amount: Int {
@@ -46,7 +46,7 @@ myProgress.amount = 10
 myProgress.amount = 20
 myProgress.amount = 30
 
-// struct内部方法
+// 4、struct内部方法
 struct City {
     var population: Int
     func doublePopulation() -> Int {
@@ -57,7 +57,7 @@ struct City {
 let shenzhen = City(population: 1_000_000)
 print(shenzhen.doublePopulation())
 
-// struct中的方法如果要改变属性，必须明确标识mutating。因为swift默认是不允许方法去改变属性的
+// 5、struct中的方法如果要改变属性，必须明确标识mutating。因为swift默认是不允许方法去改变属性的
 struct Person {
     var name: String
     mutating func changeName() {
@@ -69,5 +69,12 @@ var rose = Person(name: "Rose")
 print(rose.name)
 rose.changeName()
 print(rose.name)
+
+// 6、String 字符串,关于字符串的操作还有很多...
+let testStr = "Hello Swift!"
+print(testStr.count)
+print(testStr.hasPrefix("Hello"))
+print(testStr.uppercased())
+print(testStr.sorted())
 
 //: [Next](@next)
