@@ -46,4 +46,15 @@ myProgress.amount = 10
 myProgress.amount = 20
 myProgress.amount = 30
 
+// struct内部方法
+struct City {
+    var population: Int
+    func doublePopulation() -> Int {
+        return population * 2
+    }
+}
+
+let shenzhen = City(population: 1_000_000)
+print(shenzhen.doublePopulation())
+
 //: [Next](@next)
