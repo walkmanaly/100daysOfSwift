@@ -105,4 +105,19 @@ func action() -> (String) -> Void {
     }
 }
 
+// closure捕获变量
+func actionCapture() -> (String) -> Void {
+    var count = 0
+    return {
+        count += 1
+        print("Times: \(count) capture something: \($0)")
+    }
+}
+
+// 返回的closure捕获了变量count
+let capture = actionCapture()
+capture("Nick")
+capture("Rose")
+capture("Jack")
+
 //: [Next](@next)
