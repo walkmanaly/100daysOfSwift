@@ -104,6 +104,25 @@ classSingerCopy.name = "westlift"
 print(classSinger.name)
 // classSinger的name随之改变，因为classSinger和classSingerCopy指向同一个实例
 
+// 6、deinit方法,在该类创建的实例被释放时调用
+class People {
+    var name = "Nick"
+    init() {
+        print("hello i am \(name)")
+    }
+    func greeting() {
+        print("greetings \(name)")
+    }
+    
+    deinit {
+        print("\(name) is deinit")
+    }
+}
+
+for _ in 1...5 {
+    let peo = People()
+    peo.greeting()
+}
 
 
 
