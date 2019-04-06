@@ -2,7 +2,7 @@
 
 import Foundation
 
-// struct
+// struct 创建struct的实例如果为let则该实例的属性也不能修改
 struct Sport {
     var name: String
 }
@@ -56,5 +56,18 @@ struct City {
 
 let shenzhen = City(population: 1_000_000)
 print(shenzhen.doublePopulation())
+
+// struct中的方法如果要改变属性，必须明确标识mutating。因为swift默认是不允许方法去改变属性的
+struct Person {
+    var name: String
+    mutating func changeName() {
+        name = "Changed name"
+    }
+}
+
+var rose = Person(name: "Rose")
+print(rose.name)
+rose.changeName()
+print(rose.name)
 
 //: [Next](@next)
