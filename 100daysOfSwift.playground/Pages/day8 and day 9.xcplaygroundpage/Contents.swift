@@ -126,4 +126,24 @@ struct People {
     // self可以更清楚分别出self.name表示属性，而name则表示参数
 }
 
+// 10、lazy懒加载属性
+struct Detail {
+    init() {
+        print("Dispaly detail.")
+    }
+}
+struct Persons {
+    var name: String
+    lazy var desc = Detail()
+    
+    init(name: String) {
+        self.name = name
+    }
+}
+
+var onePerson = Persons(name: "Jack")
+// 不添加lazy关键字，每创建一个Persons实例都会调用；添加lazy关键字，在调用的时候才会执行（没用到时不创建，结束资源）
+onePerson.desc
+
+
 //: [Next](@next)
