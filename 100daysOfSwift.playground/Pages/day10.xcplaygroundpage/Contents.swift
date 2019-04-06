@@ -124,6 +124,17 @@ for _ in 1...5 {
     peo.greeting()
 }
 
+// 7、class创建的let实例，var类型的属性可以修改。
+let changeSinger = Singer(name: "westlife")
+print(changeSinger.name)
+// 定义为let的struct实例不能修改changeSinger.name
+//changeSinger.name = "Talor swift"
+print(changeSinger.name)
 
+let changeSingers = Singers(name: "talor")
+print(changeSingers.name)
+// class可以，如果要外部不能修改，把name属性声明为let
+changeSingers.name = "westlife"
+print(changeSingers.name)
 
 //: [Next](@next)
