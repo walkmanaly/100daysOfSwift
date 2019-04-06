@@ -78,4 +78,33 @@ final class Teacher {
     }
 }
 
+// 5、struct是值拷贝，sclass是引用类型
+struct Singer {
+    var name: String
+}
+
+var structSinger = Singer(name: "Talor swift")
+print(structSinger.name)
+var structSingerCopy = structSinger
+structSingerCopy.name = "Westlife"
+print(structSinger.name)
+// structSinger的值使是不变的
+
+class Singers {
+    var name: String
+    init(name: String) {
+        self.name = name
+    }
+}
+
+var classSinger = Singers(name: "Talor swift")
+print(classSinger.name)
+var classSingerCopy = classSinger
+classSingerCopy.name = "westlift"
+print(classSinger.name)
+// classSinger的name随之改变，因为classSinger和classSingerCopy指向同一个实例
+
+
+
+
 //: [Next](@next)
