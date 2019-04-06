@@ -77,4 +77,14 @@ print(testStr.hasPrefix("Hello"))
 print(testStr.uppercased())
 print(testStr.sorted())
 
+// 7、Array 数组，关于数组的各种操作，更多查看API了解
+var testArr = [String]()
+testArr.append("Nick")
+print(testArr.count)
+print(testArr.sorted())
+print(testArr.removeLast())
+testArr.append("Jack")
+print(testArr[0])
+print(testArr.firstIndex(of: "Jack"))
+
 //: [Next](@next)
