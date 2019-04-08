@@ -111,7 +111,7 @@ struct Readable: Enable {
 let readable = Readable(able: "read")
 readable.whatable()
 
-
+// test1
 protocol Buyable {
     // property in protocol must have explicit { get } or { get set } specifier
 //    var cost: Int
@@ -121,4 +121,13 @@ protocol Sellable {
     func findBuyers() -> [String]
 }
 protocol FineArt: Buyable, Sellable { }
+
+// test2
+extension String {
+    // String是值类型，所以这里扩展self是不可变的，要加上mutating关键字
+    mutating func append(_ other: String) {
+        self += other
+    }
+}
+
 //: [Next](@next)
