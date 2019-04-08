@@ -111,4 +111,14 @@ struct Readable: Enable {
 let readable = Readable(able: "read")
 readable.whatable()
 
+
+protocol Buyable {
+    // property in protocol must have explicit { get } or { get set } specifier
+//    var cost: Int
+    var cost: Int { get }
+}
+protocol Sellable {
+    func findBuyers() -> [String]
+}
+protocol FineArt: Buyable, Sellable { }
 //: [Next](@next)
