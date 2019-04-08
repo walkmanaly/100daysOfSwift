@@ -32,6 +32,34 @@ identities(thing: oneUser)
 identities(thing: onePerson)
 
 
+// 2、protocol继承,可多继承
+protocol Payable {
+    func canPay() -> Int
+}
+
+protocol Workable {
+    func workHard()
+}
+
+protocol Vocationable {
+    func goOnVocation() -> String
+}
+
+// Emplyee继承了上述三个protocol，同时拥有以上三个protocol的特性，而不需要在定义
+protocol Emplyee: Payable, Workable, Vocationable {}
+
+// Employ遵循了Emplyee协议，所以要实现这三个协议所以的方法（和属性）
+struct Employ: Emplyee {
+    func canPay() -> Int {
+        return 1_000
+    }
+    func workHard() {
+        print("work vary hard")
+    }
+    func goOnVocation() -> String {
+        return "being vocation now"
+    }
+}
 
 
 //: [Next](@next)
