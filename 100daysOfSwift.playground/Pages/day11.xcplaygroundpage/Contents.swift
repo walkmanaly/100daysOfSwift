@@ -78,4 +78,19 @@ extension Int {
 }
 number.isOddNumer
 
+// 4、Protocol extensions：协议扩展。协议定义了一个是否有某种行为，却没有实现；扩展提供了行为实现，却只能影响一种数据类型。协议扩展同时完成了这两项工作
+let citys = ["winterfell", "kingslanding", "castalrock"]
+let names = Set(["cerssi", "joferley", "hound"])
+
+extension Collection {
+    func summerise() {
+        for name in self {
+            print(name)
+        }
+    }
+}
+
+citys.summerise()
+names.summerise()
+
 //: [Next](@next)
