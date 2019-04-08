@@ -93,4 +93,22 @@ extension Collection {
 citys.summerise()
 names.summerise()
 
+// 面向协议编程:protocol-oriented programming:协议扩展，在扩展中提供协议中的方法的默认实现
+protocol Enable {
+    var able: String {get set}
+    func whatable()
+}
+
+extension Enable {
+    func whatable() {
+        print("My able is \(able)")
+    }
+}
+
+struct Readable: Enable {
+    var able: String
+}
+let readable = Readable(able: "read")
+readable.whatable()
+
 //: [Next](@next)
