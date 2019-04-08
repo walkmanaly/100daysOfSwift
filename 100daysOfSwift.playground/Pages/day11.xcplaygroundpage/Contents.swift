@@ -130,4 +130,22 @@ extension String {
     }
 }
 
+// test3 extension中的方法名不是protocol中定义的方法名，虽然编译器不报错，但不符合POP
+protocol SuperHeroMovie {
+    func writeScript() -> String
+}
+extension SuperHeroMovie {
+    func makeScript() -> String {
+        return """
+        Lots of special effects,
+        some half-baked jokes,
+        and a hint of another
+        sequel at the end.
+        """
+    }
+}
+
+// test4
+
+
 //: [Next](@next)
