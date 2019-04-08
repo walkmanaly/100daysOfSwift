@@ -61,5 +61,21 @@ struct Employ: Emplyee {
     }
 }
 
+// 3、extension：可给已出现的类型添加方法（行为）
+extension Int {
+    func square() -> Int {
+        return self * self
+    }
+}
+
+var number = 10
+number.square()
+// extension：可给已出现的类型添加属性（只能是计算型属性，不能添加存储型属性）
+extension Int {
+    var isOddNumer: Bool {
+        return self % 2 != 0
+    }
+}
+number.isOddNumer
 
 //: [Next](@next)
