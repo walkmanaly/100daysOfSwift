@@ -97,4 +97,25 @@ struct identity {
 let id = identity(id: "769708797")
 print(id)
 
+// 10、Typecasting
+class Animal {
+    
+}
+class Dog: Animal {
+    func makeNosie() {
+        print("wang cai")
+    }
+}
+
+class Bird: Animal {
+    
+}
+
+let animals = [Dog(), Bird(), Dog(), Bird()]
+for item in animals {
+    if let pat = item as? Dog {
+        pat.makeNosie()
+    }
+}
+
 //: [Next](@next)
