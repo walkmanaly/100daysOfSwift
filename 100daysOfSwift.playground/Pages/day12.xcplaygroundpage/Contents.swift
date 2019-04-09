@@ -38,4 +38,18 @@ print(five)
 var someName: String! = nil
 someName = "Nick"
 
+// 6、nil coalesing：？？操作符，有值用之，没有值用右边的默认值
+func userName(_ number: Int) -> String? {
+    if number == 1 {
+        return "Nick"
+    } else {
+        return nil
+    }
+}
+
+let oName = userName(11) ?? "Rose"
+
+
+
+
 //: [Next](@next)
