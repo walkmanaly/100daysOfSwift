@@ -34,4 +34,8 @@ let str = "5"
 let five = Int(str)!
 print(five)
 
+// 5、隐式解包,在声明的时候强制解包，在后续使用就不需要解包了
+var someName: String! = nil
+someName = "Nick"
+
 //: [Next](@next)
