@@ -49,7 +49,10 @@ func userName(_ number: Int) -> String? {
 
 let oName = userName(11) ?? "Rose"
 
+// 7、optional chaining：a.b?.c，swift会检查，如果b返回nil，这个表达式会立刻返回nil不管后续的操作；如果返回其他值，继续后续操作
+let names = ["Nick", "Rose", "Jack"]
 
+let result = names.first?.uppercased()
 
 
 //: [Next](@next)
