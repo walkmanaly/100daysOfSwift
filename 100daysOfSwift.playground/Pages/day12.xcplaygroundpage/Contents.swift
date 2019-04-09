@@ -82,4 +82,19 @@ if let password = try? checkPassword("97697") {
 try? checkPassword("123789")
 //try! checkPassword("password") // 此处try！会crash，进入了error
 
+// 9、 failable initializer:有可能返回你来实例的初始化方法
+struct identity {
+    var id: String
+    init?(id: String) {
+        if id.count == 9 {
+            self.id = id
+        } else {
+            return nil
+        }
+    }
+}
+
+let id = identity(id: "769708797")
+print(id)
+
 //: [Next](@next)
