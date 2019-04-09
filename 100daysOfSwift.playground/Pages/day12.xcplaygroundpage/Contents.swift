@@ -55,4 +55,31 @@ let names = ["Nick", "Rose", "Jack"]
 let result = names.first?.uppercased()
 
 
+// 8、try optional
+enum ErrorType: Error {
+    case obvis
+}
+
+func checkPassword(_ password: String) throws -> Bool {
+    if password == "password" {
+        throw ErrorType.obvis
+    }
+    return true
+}
+
+do {
+    try checkPassword("password")
+    print("that is not good")
+} catch {
+    print("you can use it")
+}
+
+if let password = try? checkPassword("97697") {
+    print("pass word \(password)")
+} else {
+    print("error")
+}
+try? checkPassword("123789")
+//try! checkPassword("password") // 此处try！会crash，进入了error
+
 //: [Next](@next)
