@@ -29,6 +29,9 @@ func usingName(_ name: String?) {
 usingName("nick")
 usingName(nil)
 
-
+// 4、强制解包，在你确认某个变量一定有值时使用，你也可以用来做crash调试（在指定位置crash）
+let str = "5"
+let five = Int(str)!
+print(five)
 
 //: [Next](@next)
