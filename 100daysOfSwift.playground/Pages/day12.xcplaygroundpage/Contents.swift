@@ -117,5 +117,49 @@ for item in animals {
         pat.makeNosie()
     }
 }
+// test1
+var bestScore: Int? = nil
+bestScore = 101
+if bestScore! > 100 {
+    print("You got a high score!")
+} else {
+    print("Better luck next time.")
+}
+// test2
+var score: Int? = nil
+score = 556
+if let playerScore = score {
+    print("You scored \(playerScore) points.")
+}
+// test3
+let menuItems: [String]? = ["Pizza", "Pasta"]
+if let items = menuItems {
+    print("There are \(items.count) items to choose from.")
+}
+// test4
+func username(for id: Int?) -> String? {
+    guard let id = id else {
+        return nil
+    }
+    if id == 1989 {
+        return "Taylor Swift"
+    } else {
+        return nil
+    }
+}
+if let user = username(for: 1989) {
+    print("Hello, \(user)!")
+}
+// test5
+func brewBeer(to strength: Double?) {
+    guard let strength = strength else { return }
+    print("Let's brew some beer!")
+}
+brewBeer(to: 5.5)
+
+
+
+
+
 
 //: [Next](@next)
