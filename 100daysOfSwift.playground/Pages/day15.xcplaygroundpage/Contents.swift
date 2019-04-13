@@ -1,6 +1,6 @@
 //: [Previous](@previous)
 
-import Foundation
+import UIKit
 
 // 复习
 // 1、Typecasting类型推导
@@ -64,6 +64,17 @@ for person in allPersons as! [Student] {
 allPersons = [jack, rose, teac]
 for person in allPersons as? [Student] ?? [Student]() {
     print("\(person.name) \(person.score)")
+}
+
+// 闭包closure
+let vw = UIView()
+
+UIView.animate(withDuration: 0.5, animations: {
+    vw.alpha = 0
+})
+
+UIView.animate(withDuration: 1) {
+    vw.alpha = 0
 }
 
 //: [Next](@next)
