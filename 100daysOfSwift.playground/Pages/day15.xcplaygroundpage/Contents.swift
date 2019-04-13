@@ -31,7 +31,7 @@ let jack = Student(name: "jack", score: 90.5)
 let rose = Student(name: "rose", score: 85.5)
 let teac = Teacher(name: "missli", subject: "English")
 
-let allPersons = [jack, rose, teac]
+var allPersons = [jack, rose, teac]
 
 for person in allPersons {
     if let student = person as? Student {
@@ -41,5 +41,16 @@ for person in allPersons {
     }
 }
 
+allPersons = [jack, rose]
+// 因为确定allPersons里都是Student类型的对象，所以可以用as!强制转换（如果不确认就这么写，会crash，swift把这交给👨‍💻‍，如果crash你自己负责咯）
+for person in allPersons as! [Student] {
+    print("student \(person.name) score is \(person.score)")
+}
+
+// 如果数组h中全是Student类型对象则处理，否则创建一个空数组做默认处理
+allPersons = [jack, rose, teac]
+for person in allPersons as? [Student] ?? [Student]() {
+    print("\(person.name) \(person.score)")
+}
 
 //: [Next](@next)
