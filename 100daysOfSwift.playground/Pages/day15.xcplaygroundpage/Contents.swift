@@ -9,6 +9,9 @@ class Person {
     init(name: String) {
         self.name = name
     }
+    func description() {
+        print("person name is \(name)")
+    }
 }
 
 class Student: Person {
@@ -16,6 +19,9 @@ class Student: Person {
     init(name: String, score: Double) {
         self.score = score
         super.init(name: name)
+    }
+    override func description() {
+        print("student name is \(name), score is \(score)")
     }
 }
 
@@ -25,6 +31,9 @@ class Teacher: Person {
         self.subject = subject
         super.init(name: name)
     }
+    override func description() {
+        print("teacher name is \(name), teach the \(subject)")
+    }
 }
 
 let jack = Student(name: "jack", score: 90.5)
@@ -32,6 +41,10 @@ let rose = Student(name: "rose", score: 85.5)
 let teac = Teacher(name: "missli", subject: "English")
 
 var allPersons = [jack, rose, teac]
+
+for person in allPersons {
+    person.description()
+}
 
 for person in allPersons {
     if let student = person as? Student {
