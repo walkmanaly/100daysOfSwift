@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     
     var countries = [String]()
     var score = 0
+    var rightAnser = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +30,19 @@ class ViewController: UIViewController {
         button2.layer.borderColor = UIColor.lightGray.cgColor
         button3.layer.borderColor = UIColor.lightGray.cgColor
         
-        dispalyFlag()
+        askQuestion()
     }
 
-    func dispalyFlag() {
+    func askQuestion() {
+        countries.shuffle() // 将数组的书序随机打乱
+        
+        rightAnser = Int.random(in: 0...2)
+        
         button1.setImage(UIImage(named: countries[0]), for: .normal)
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
+        
+        title = countries[rightAnser]
     }
 
 }
