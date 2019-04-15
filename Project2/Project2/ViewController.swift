@@ -33,17 +33,29 @@ class ViewController: UIViewController {
         askQuestion()
     }
 
-    func askQuestion() {
+    func askQuestion(action: UIAlertAction! = nil) {
         countries.shuffle() // 将数组的书序随机打乱
-        
         rightAnser = Int.random(in: 0...2)
-        
         button1.setImage(UIImage(named: countries[0]), for: .normal)
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
-        
-        title = countries[rightAnser]
+        title = countries[rightAnser].uppercased()
     }
+    
+    @IBAction func buttonTapped(_ sender: UIButton) {
+        
+        if sender.tag == rightAnser {
+            score += 1
+        } else {
+            score -= 1
+        }
+        
+        let ac = UIAlertController(title: "Score", message: "Your score is \(score)", preferredStyle: .actionSheet)
+        let av = UIAlertAction(title: "Continue", style: .default, handler: askQuestion)
+        ac.addAction(av)
+        present(ac, animated: true, completion: nil)
+    }
+    
 
 }
 
