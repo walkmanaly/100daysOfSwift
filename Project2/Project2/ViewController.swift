@@ -40,7 +40,7 @@ class ViewController: UIViewController {
         button1.setImage(UIImage(named: countries[0]), for: .normal)
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
-        title = countries[rightAnser].uppercased() .appending(" score: \(score)")
+        title = countries[rightAnser].uppercased() .appending(" total score: \(score)")
         if action != nil && total < 10 {
             total += 1
         }
