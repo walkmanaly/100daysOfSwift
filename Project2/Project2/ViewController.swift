@@ -53,10 +53,11 @@ class ViewController: UIViewController {
         if total < 10 {
             if sender.tag == rightAnser {
                 score += 1
+                ac.message = "Right! Your score is \(score)"
             } else {
                 score -= 1
+                ac.message = "Wrong! That’s the flag of \(countries[sender.tag])"
             }
-            ac.message = "Your score is \(score)"
             ac.addAction(continueAv)
         } else {
             ac.message = "This is the last question, your total score is \(score)"
