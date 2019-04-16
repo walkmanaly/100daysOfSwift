@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     var countries = [String]()
     var score = 0
     var rightAnser = 0
+    var total = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,23 +40,29 @@ class ViewController: UIViewController {
         button1.setImage(UIImage(named: countries[0]), for: .normal)
         button2.setImage(UIImage(named: countries[1]), for: .normal)
         button3.setImage(UIImage(named: countries[2]), for: .normal)
-        title = countries[rightAnser].uppercased()
+        title = countries[rightAnser].uppercased() .appending(" score: \(score)")
+        if action != nil && total < 10 {
+            total += 1
+        }
     }
     
     @IBAction func buttonTapped(_ sender: UIButton) {
-        
-        if sender.tag == rightAnser {
-            score += 1
+        let continueAv = UIAlertAction(title: "Continue", style: .default, handler: askQuestion)
+        let finishAv = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        let ac = UIAlertController(title: "Score", message: "", preferredStyle: .alert)
+        if total < 10 {
+            if sender.tag == rightAnser {
+                score += 1
+            } else {
+                score -= 1
+            }
+            ac.message = "Your score is \(score)"
+            ac.addAction(continueAv)
         } else {
-            score -= 1
+            ac.message = "This is the last question, your total score is \(score)"
+            ac.addAction(finishAv)
         }
-        
-        let ac = UIAlertController(title: "Score", message: "Your score is \(score)", preferredStyle: .actionSheet)
-        let av = UIAlertAction(title: "Continue", style: .default, handler: askQuestion)
-        ac.addAction(av)
         present(ac, animated: true, completion: nil)
     }
-    
-
 }
 
