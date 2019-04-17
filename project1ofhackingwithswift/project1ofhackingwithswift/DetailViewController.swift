@@ -41,7 +41,11 @@ class DetailViewController: UIViewController {
             print("There is no image")
             return
         }
-        let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
+        guard let title = headTitle else {
+            print("There is no title")
+            return
+        }
+        let vc = UIActivityViewController(activityItems: [image, title], applicationActivities: [])
         // if we don't add this code, the app will crash on the ipad
         vc.popoverPresentationController?.barButtonItem = self.navigationItem.rightBarButtonItem
         present(vc, animated: true, completion: nil)
