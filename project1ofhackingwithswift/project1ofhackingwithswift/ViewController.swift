@@ -28,6 +28,14 @@ class ViewController: UITableViewController {
         
         title = "Pictures List"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareListClicked))
+    }
+    
+    @objc func shareListClicked() {
+        
+        let vc = UIActivityViewController(activityItems: ["My project1 of hacking swift"], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
 }
 
