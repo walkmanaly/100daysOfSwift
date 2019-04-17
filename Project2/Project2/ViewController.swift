@@ -32,10 +32,19 @@ class ViewController: UIViewController {
         button3.layer.borderColor = UIColor.lightGray.cgColor
         
         askQuestion()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(showTotalScore))
+    }
+    
+    @objc func showTotalScore() {
+        let ac = UIAlertController(title: "Current Score", message: "Your current score is \(score)", preferredStyle: .actionSheet)
+        let av = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+        ac.addAction(av)
+        present(ac, animated: true)
     }
 
     func askQuestion(action: UIAlertAction! = nil) {
-        countries.shuffle() // 将数组的书序随机打乱
+        countries.shuffle() // 将数组的顺序随机打乱
         rightAnser = Int.random(in: 0...2)
         button1.setImage(UIImage(named: countries[0]), for: .normal)
         button2.setImage(UIImage(named: countries[1]), for: .normal)
