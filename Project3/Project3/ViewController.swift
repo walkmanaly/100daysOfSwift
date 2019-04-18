@@ -12,7 +12,17 @@ class ViewController: UITableViewController {
     var pictures = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        pictures += ["france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
+//        pictures += ["france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "uk", "us"]
+        
+        let fm = FileManager.default
+        let path = Bundle.main.resourcePath!
+        let items = try! fm.contentsOfDirectory(atPath: path)
+        
+        for item in items {
+            if item.hasPrefix("nssl") {
+                pictures.append(item)
+            }
+        }
     }
 }
 
@@ -24,6 +34,7 @@ extension ViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView .dequeueReusableCell(withIdentifier: "picture", for: indexPath)
         cell.textLabel?.text = pictures[indexPath.row]
+        cell.imageView?.image = UIImage(named: pictures[indexPath.row])
         return cell
     }
     
