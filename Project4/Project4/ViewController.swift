@@ -26,7 +26,7 @@ class ViewController: UIViewController, WKNavigationDelegate {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openClicked))
         
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let reload = UIBarButtonItem(barButtonSystemItem: .refresh, target: self, action: #selector(webView.reload))
+        let reload = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
         progressView = UIProgressView(progressViewStyle: .default)
         let progressBar = UIBarButtonItem(customView: progressView)
         
@@ -67,6 +67,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
         if keyPath == "estimatedProgress" {
             progressView.progress = Float(webView.estimatedProgress)
         }
+    }
+    
+    deinit {
+        removeObserver(self, forKeyPath: "estimatedProgress")
     }
 }
 
