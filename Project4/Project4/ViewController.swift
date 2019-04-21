@@ -2,113 +2,37 @@
 //  ViewController.swift
 //  Project4
 //
-//  Created by Nick on 2019/4/19.
+//  Created by Nick on 2019/4/21.
 //  Copyright © 2019 Nick. All rights reserved.
 //
 
 import UIKit
-import WebKit
 
-class ViewController: UIViewController, WKNavigationDelegate {
+class ViewController: UITableViewController {
 
-    var webView: WKWebView!
-    var progressView: UIProgressView!
-    var webSites = ["www.apple.com",
-                    "www.hackingwithswift.com",
-                    "haha#%**&^%$"]
-    
-    override func loadView() {
-        webView = WKWebView()
-        webView.navigationDelegate = self
-        view = webView
-    }
+    let webSites = ["apple.com", "hackingwithswift.com", "google.com", "swift.org", "twitter.com"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openClicked))
-        
-        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let reload = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
-        progressView = UIProgressView(progressViewStyle: .default)
-        let progressBar = UIBarButtonItem(customView: progressView)
-        
-        let goBackBar = UIBarButtonItem(title: "goBack", style: .plain, target: self, action: #selector(goBack))
-        let goForwardBar = UIBarButtonItem(title: "goForward", style: .plain, target: self, action: #selector(goForward))
-        
-        toolbarItems = [progressBar, spacer, goBackBar, spacer, goForwardBar, spacer, reload]
-        navigationController?.isToolbarHidden = false
-        
-        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
-        
-        let url = URL(string: "https://" + webSites[0])!
-        webView.load(URLRequest(url: url))
-        webView.allowsBackForwardNavigationGestures = true
     }
-    
-    @objc func openClicked() {
-        let ac = UIAlertController(title: "Website", message: nil, preferredStyle: .actionSheet)
-        for webSite in webSites {
-            ac.addAction(UIAlertAction(title: webSite, style: .default, handler: chooseWebsite))
-        }
-        ac.addAction(UIAlertAction(title: "cancal", style: .cancel, handler: nil))
-        popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        present(ac, animated: true)
-    }
-    
-    func chooseWebsite(action: UIAlertAction) {
-        guard let actionTitle = action.title else {
-            return
-        }
-        guard let url = URL(string: "https://" + actionTitle) else {
-            
-            let av = UIAlertController(title: "Oops", message: "It's blocked!", preferredStyle: .alert)
-            av.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-            present(av, animated: true)
-            
-            return
-        }
-        webView.load(URLRequest(url: url))
-    }
-    
-    @objc func goBack() {
-        if webView.canGoBack {
-            webView.goBack()
-        }
-    }
-    
-    @objc func goForward() {
-        if webView.canGoForward {
-            webView.goForward()
-        }
-    }
-    
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        title = webView.title
-    }
-    
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        let url = navigationAction.request.url
-        if let host = url?.host {
-            for webSite in webSites {
-                if host.contains(webSite) {
-                    decisionHandler(.allow)
-                    return
-                }
-            }
-        }
-        decisionHandler(.cancel)
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "estimatedProgress" {
-            progressView.progress = Float(webView.estimatedProgress)
-        }
-    }
-    
-    deinit {
-        removeObserver(self, forKeyPath: "estimatedProgress")
-    }
+
 }
 
+extension ViewController {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return webSites.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView .dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = webSites[indexPath.row]
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "webview") as? WebViewController {
+            vc.webSite = webSites[indexPath.row]
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+}
