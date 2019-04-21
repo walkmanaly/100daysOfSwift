@@ -33,7 +33,10 @@ class ViewController: UIViewController, WKNavigationDelegate {
         progressView = UIProgressView(progressViewStyle: .default)
         let progressBar = UIBarButtonItem(customView: progressView)
         
-        toolbarItems = [progressBar, spacer, reload]
+        let goBackBar = UIBarButtonItem(title: "goBack", style: .plain, target: self, action: #selector(goBack))
+        let goForwardBar = UIBarButtonItem(title: "goForward", style: .plain, target: self, action: #selector(goForward))
+        
+        toolbarItems = [progressBar, spacer, goBackBar, spacer, goForwardBar, spacer, reload]
         navigationController?.isToolbarHidden = false
         
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
@@ -67,6 +70,18 @@ class ViewController: UIViewController, WKNavigationDelegate {
             return
         }
         webView.load(URLRequest(url: url))
+    }
+    
+    @objc func goBack() {
+        if webView.canGoBack {
+            webView.goBack()
+        }
+    }
+    
+    @objc func goForward() {
+        if webView.canGoForward {
+            webView.goForward()
+        }
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
