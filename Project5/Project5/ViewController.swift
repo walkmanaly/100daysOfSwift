@@ -15,6 +15,8 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(promotAnser))
+        
         if let allWordsURL = Bundle.main.url(forResource: "start", withExtension: "txt") {
             if let allWordsStr = try? String(contentsOf: allWordsURL) {
                 allWords = allWordsStr.components(separatedBy: "\n")
@@ -43,6 +45,25 @@ class ViewController: UITableViewController {
         cell.textLabel?.text = useWords[indexPath.row]
         return cell
     }
+    
+    @objc func promotAnser() {
+        let ac = UIAlertController(title: "Word", message: "Selected word", preferredStyle: .alert)
+        ac.addTextField()
+        
+        let av = UIAlertAction(title: "submit", style: .default) {
+            [weak self, weak ac] _ in
+            if let word = ac?.textFields?[0].text {
+                self?.submit(word)
+            }
+            
+        }
+        ac.addAction(av)
+        popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(ac, animated: true)
+    }
 
+    func submit(_ anser: String) {
+        print(anser)
+    }
 }
 
