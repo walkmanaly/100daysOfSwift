@@ -13,6 +13,8 @@ class ViewController: UIViewController, WKNavigationDelegate {
 
     var webView: WKWebView!
     var progressView: UIProgressView!
+    var webSites = ["www.apple.com",
+                    "www.hackingwithswift.com"]
     
     override func loadView() {
         webView = WKWebView()
@@ -35,15 +37,16 @@ class ViewController: UIViewController, WKNavigationDelegate {
         
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
         
-        let url = URL(string: "https://www.apple.com")!
+        let url = URL(string: "https://" + webSites[0])!
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
     }
     
     @objc func openClicked() {
         let ac = UIAlertController(title: "Website", message: nil, preferredStyle: .actionSheet)
-        ac.addAction(UIAlertAction(title: "apple.com", style: .default, handler: chooseWebsite))
-        ac.addAction(UIAlertAction(title: "hackingwithswift.com", style: .default, handler: chooseWebsite))
+        for webSite in webSites {
+            ac.addAction(UIAlertAction(title: webSite, style: .default, handler: chooseWebsite))
+        }
         ac.addAction(UIAlertAction(title: "cancal", style: .cancel, handler: nil))
         popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(ac, animated: true)
@@ -61,6 +64,19 @@ class ViewController: UIViewController, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         title = webView.title
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        let url = navigationAction.request.url
+        if let host = url?.host {
+            for webSite in webSites {
+                if host.contains(webSite) {
+                    decisionHandler(.allow)
+                    return
+                }
+            }
+        }
+        decisionHandler(.cancel)
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
