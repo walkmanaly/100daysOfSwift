@@ -14,7 +14,8 @@ class ViewController: UIViewController, WKNavigationDelegate {
     var webView: WKWebView!
     var progressView: UIProgressView!
     var webSites = ["www.apple.com",
-                    "www.hackingwithswift.com"]
+                    "www.hackingwithswift.com",
+                    "haha#%**&^%$"]
     
     override func loadView() {
         webView = WKWebView()
@@ -57,6 +58,12 @@ class ViewController: UIViewController, WKNavigationDelegate {
             return
         }
         guard let url = URL(string: "https://" + actionTitle) else {
+            
+            let av = UIAlertController(title: "Oops", message: "It's blocked!", preferredStyle: .alert)
+            av.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+            present(av, animated: true)
+            
             return
         }
         webView.load(URLRequest(url: url))
