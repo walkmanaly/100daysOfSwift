@@ -47,7 +47,7 @@ class ViewController: UITableViewController {
     }
     
     @objc func promotAnser() {
-        let ac = UIAlertController(title: "Word", message: "Selected word", preferredStyle: .alert)
+        let ac = UIAlertController(title: "Word", message: "Typing word", preferredStyle: .alert)
         ac.addTextField()
         
         let av = UIAlertAction(title: "submit", style: .default) {
@@ -64,6 +64,28 @@ class ViewController: UITableViewController {
 
     func submit(_ anser: String) {
         print(anser)
+        let lowcaseWord = anser.lowercased()
+        if isPossible(word: lowcaseWord) {
+            if isOriginal(word: lowcaseWord) {
+                if isReal(word: lowcaseWord) {
+                    useWords.insert(lowcaseWord, at: 0)
+                    let indexPath = IndexPath(row: 0, section: 0)
+                    tableView.insertRows(at: [indexPath], with: .fade)
+                }
+            }
+        }
+    }
+    
+    func isPossible(word: String) -> Bool {
+        return true
+    }
+    
+    func isOriginal(word: String) -> Bool {
+        return true
+    }
+    
+    func isReal(word: String) -> Bool {
+        return true
     }
 }
 
