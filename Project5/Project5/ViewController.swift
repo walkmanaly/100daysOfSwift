@@ -64,6 +64,10 @@ class ViewController: UITableViewController {
 
     func submit(_ anser: String) {
         print(anser)
+        
+        let errorTitle: String
+        let errorMessage: String
+        
         let lowcaseWord = anser.lowercased()
         if isPossible(word: lowcaseWord) {
             if isOriginal(word: lowcaseWord) {
@@ -71,9 +75,24 @@ class ViewController: UITableViewController {
                     useWords.insert(lowcaseWord, at: 0)
                     let indexPath = IndexPath(row: 0, section: 0)
                     tableView.insertRows(at: [indexPath], with: .fade)
+                    return
+                } else {
+                    errorTitle = "Word not recognised"
+                    errorMessage = "You can't just make them up"
                 }
+            } else {
+                errorTitle = "Word used already"
+                errorMessage = "Be more original!"
             }
+        } else {
+            guard let title = title?.lowercased() else { return }
+            errorTitle = "Word not possible"
+            errorMessage = "You can't spell that word from \(title)"
         }
+        let ac = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(ac, animated: true)
     }
     
     func isPossible(word: String) -> Bool {
