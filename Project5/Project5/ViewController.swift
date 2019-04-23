@@ -79,16 +79,23 @@ class ViewController: UITableViewController {
                 } else {
                     errorTitle = "Word not recognised"
                     errorMessage = "You can't just make them up"
+                    handleErrors(errorTitle: errorTitle, errorMessage: errorMessage)
                 }
             } else {
                 errorTitle = "Word used already"
                 errorMessage = "Be more original!"
+                handleErrors(errorTitle: errorTitle, errorMessage: errorMessage)
             }
         } else {
             guard let title = title?.lowercased() else { return }
             errorTitle = "Word not possible"
             errorMessage = "You can't spell that word from \(title)"
+            handleErrors(errorTitle: errorTitle, errorMessage: errorMessage)
         }
+        
+    }
+    
+    func handleErrors(errorTitle: String, errorMessage: String) {
         let ac = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
