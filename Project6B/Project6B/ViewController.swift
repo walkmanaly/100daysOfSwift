@@ -40,6 +40,7 @@ class ViewController: UIViewController {
         label4.sizeToFit()
         
         let label5 = UILabel()
+        label5.tag = 10
         label5.translatesAutoresizingMaskIntoConstraints = false
         label5.backgroundColor = UIColor.orange
         label5.text = "LABELS"
@@ -67,12 +68,15 @@ class ViewController: UIViewController {
         // 使用
         for label in [label1, label2, label3, label4, label5] {
 //            label.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10).isActive = true
-            label.heightAnchor.constraint(equalToConstant: 80).isActive = true
+            label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+            label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
+            label.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.2, constant: -10).isActive = true
             
             if let previous = previous {
                 label.topAnchor.constraint(equalTo: previous.bottomAnchor, constant: 10).isActive = true
+                if label.tag == 5 {
+                    label.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
+                }
             } else {
                 label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
             }
