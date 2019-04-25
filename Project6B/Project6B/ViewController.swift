@@ -54,9 +54,13 @@ class ViewController: UIViewController {
         for label in viewDict.keys {            view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[\(label)]|", options: [], metrics: nil, views: viewDict))
         }
         // - default is 10,
+        // way 2
 //        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(==80)]-[label2(==80)]-[label3(==80)]-[label4(==80)]-[label5(==80)]-(>=20)-|", options: [], metrics: nil, views: viewDict))
         let metrics = ["labelHeight": 80]
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(labelHeight)]-[label2(labelHeight)]-[label3(labelHeight)]-[label4(labelHeight)]-[label5(labelHeight)]-(>=20)-|", options: [], metrics: metrics, views: viewDict))
+        // way 3
+//        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(labelHeight)]-[label2(labelHeight)]-[label3(labelHeight)]-[label4(labelHeight)]-[label5(labelHeight)]-(>=20)-|", options: [], metrics: metrics, views: viewDict))
+        // way 4 使用@999，可以自适应将所有视图fit
+        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[label1(labelHeight@999)]-[label2(label1)]-[label3(label1)]-[label4(label1)]-[label5(label1)]->=20-|", options: [], metrics: metrics, views: viewDict))
     }
 
 
