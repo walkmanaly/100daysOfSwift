@@ -15,13 +15,27 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let url = "https://www.hackingwithswift.com/samples/petitions-1.json"
+        var url: String
+        if navigationController?.tabBarItem.tag == 0 {
+            url = "https://www.hackingwithswift.com/samples/petitions-1.json"
+        } else {
+            url = "https://www.hackingwithswift.com/samples/petitions-2.json"
+        }
         if let url = URL(string: url) {
             if let data = try? Data(contentsOf: url) {
-                //
                 parseData(json: data)
+                return
             }
         }
+        
+        showError()
+    }
+    
+    func showError() {
+        let ac = UIAlertController(title: "Error", message: "something wrong when load the data", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default))
+//        popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(ac, animated: true)
     }
     
     func parseData(json: Data) {

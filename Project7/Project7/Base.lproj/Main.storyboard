@@ -57,7 +57,7 @@
         <!--Navigation Controller-->
         <scene sceneID="rsa-PS-MQ9">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ELm-S2-mJS" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavController" automaticallyAdjustsScrollViewInsets="NO" id="ELm-S2-mJS" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" systemItem="recents" id="C9R-Ie-SS0"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Z9p-AI-xuO">
