@@ -11,9 +11,13 @@ import UIKit
 class ViewController: UITableViewController {
 
     var petitions = [Petition]()
+    var allPetitions = [Petition]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .organize, target: self, action: #selector(showMessage))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(filterData))
         
         var url: String
         if navigationController?.tabBarItem.tag == 0 {
@@ -31,6 +35,30 @@ class ViewController: UITableViewController {
         showError()
     }
     
+    @objc func filterData() {
+        let ac = UIAlertController(title: "Filter", message: "Please input keyword", preferredStyle: .alert)
+        ac.addTextField()
+        ac.addAction(UIAlertAction(title: "Commit", style: .default, handler: { [weak ac, weak self] _ in
+            if let text = ac?.textFields?[0].text {
+                // get the text from the textfeild
+                self?.petitions.removeAll()
+                for petition in self?.allPetitions ?? [] {
+                    if petition.title.contains(text) {
+                        self?.petitions.append(petition)
+                        self?.tableView.reloadData()
+                    }
+                }
+            }
+        }))
+        present(ac, animated: true)
+    }
+    
+    @objc func showMessage() {
+        let ac = UIAlertController(title: "Tips", message: "the data comes from the We The People API of the Whitehouse.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default))
+        present(ac, animated: true)
+    }
+    
     func showError() {
         let ac = UIAlertController(title: "Error", message: "something wrong when load the data", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Ok", style: .default))
@@ -42,6 +70,7 @@ class ViewController: UITableViewController {
         let jsonDecoder = JSONDecoder()
         if let petition = try? jsonDecoder.decode(Petitions.self, from: json) {
             petitions = petition.results
+            allPetitions = petitions
             tableView.reloadData()
         }
     }
