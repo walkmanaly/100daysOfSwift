@@ -10,52 +10,65 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var level = 1
+    var score = 0
+    var scoreLabel: UILabel!
+    var cluesLabel: UILabel!
+    var resultLabel: UILabel!
+    var textField: UITextField!
+    var submitButton: UIButton!
+    var resetButton: UIButton!
+    var buttons = [UIButton]()
+    
+    var tips = ""
+    var questions = ""
+    var bits = [String]()
+    var solutions = [String]()
+    var activitedButton = [UIButton]()
     
     override func loadView() {
         let backView = UIView()
         backView.backgroundColor = .white
         view = backView
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
         
-        let scoreLabel = UILabel()
+        scoreLabel = UILabel()
         scoreLabel.translatesAutoresizingMaskIntoConstraints = false
         scoreLabel.font = UIFont.systemFont(ofSize: 12)
         scoreLabel.textAlignment = .right
         scoreLabel.text = "score: 0"
-        //        view.addSubview(scoreLabel)
         
-        let cluesLabel = UILabel()
+        cluesLabel = UILabel()
         cluesLabel.translatesAutoresizingMaskIntoConstraints = false
-        cluesLabel.font = UIFont.systemFont(ofSize: 44)
+        cluesLabel.font = UIFont.systemFont(ofSize: 24)
         cluesLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
-        cluesLabel.textAlignment = .right
+        cluesLabel.textAlignment = .left
+        cluesLabel.numberOfLines = 0
         cluesLabel.text = "clues"
-        //        view.addSubview(cluesLabel)
         
-        let resultLabel = UILabel()
+        resultLabel = UILabel()
         resultLabel.translatesAutoresizingMaskIntoConstraints = false
-        resultLabel.font = UIFont.systemFont(ofSize: 44)
+        resultLabel.font = UIFont.systemFont(ofSize: 24)
         resultLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
+        resultLabel.numberOfLines = 0
         resultLabel.text = "result"
         
-        let textField = UITextField()
+        textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.isUserInteractionEnabled = false
         textField.placeholder = "Please input the answer"
         textField.font = UIFont.systemFont(ofSize: 56)
         
-        let submitButton = UIButton(type: .system)
+        submitButton = UIButton(type: .system)
         submitButton.setTitle("submit", for: .normal)
         submitButton.translatesAutoresizingMaskIntoConstraints = false
         submitButton.titleLabel?.font = UIFont.systemFont(ofSize: 24)
+        submitButton.addTarget(self, action: #selector(submitTapped), for: .touchUpInside)
         
-        let resetButton = UIButton(type: .system)
+        resetButton = UIButton(type: .system)
         resetButton.translatesAutoresizingMaskIntoConstraints = false
         resetButton.setTitle("reset", for: .normal)
         resetButton.titleLabel?.font = UIFont.systemFont(ofSize: 24)
+        resetButton.addTarget(self, action: #selector(resetTapped), for: .touchUpInside)
         
         let buttonsView = UIView()
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
@@ -69,7 +82,9 @@ class ViewController: UIViewController {
                 button.titleLabel?.font = UIFont.systemFont(ofSize: 36)
                 let frame = CGRect(x: i * buttonWidth, y: j * buttonHeight, width: buttonWidth, height: buttonHeight)
                 button.frame = frame
+                button.addTarget(self, action: #selector(letterTapped), for: .touchUpInside)
                 buttonsView.addSubview(button)
+                buttons.append(button)
             }
         }
         
@@ -109,11 +124,108 @@ class ViewController: UIViewController {
             
             ])
         
-        cluesLabel.backgroundColor = .red
-        resultLabel.backgroundColor = .green
+        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        loadLevel()
+        
+    }
+    
+    @objc func letterTapped(_ sender: UIButton) {
+        guard let title = sender.currentTitle else {
+            return
+        }
+        textField.text = textField.text?.appending(title)
+        
+        sender.isHidden = true
+        activitedButton.append(sender)
+        
+    }
+    
+    @objc func submitTapped(_ sender: UIButton) {
+        guard let answer = textField.text else {
+            return
+        }
+        
+        if let solution = solutions.firstIndex(of: answer) {
+            activitedButton.removeAll()
+            
+            var splitAnswers = resultLabel.text?.components(separatedBy: "\n")
+            splitAnswers?[solution] = answer
+            resultLabel.text = splitAnswers?.joined(separator: "\n")
+            
+            textField.text = ""
+            score += 1
+            
+            if score % 7 == 0 {
+                let ac = UIAlertController(title: "Well Done", message: "go to next level", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "Yes", style: .default, handler: nextLevel))
+                present(ac, animated: true)
+            }
+        }
+    }
+    
+    @objc func nextLevel(_ ac: UIAlertAction) {
+        level += 1
+        loadLevel()
+        
+        solutions.removeAll(keepingCapacity: true)
+        for button in buttons {
+            button.isHidden = false
+        }
+    }
+    
+    @objc func resetTapped(_ sender: UIButton) {
+        for button in activitedButton {
+            button.isHidden = false
+        }
+        textField.text = ""
+        activitedButton.removeAll()
     }
 
+    func loadLevel() {
+        
+        if let levelFileUrl = Bundle.main.url(forResource: "level\(level)", withExtension: "txt") {
+            if let levelString = try? String(contentsOf: levelFileUrl) {
+                
+                var lines = levelString.components(separatedBy: "\n")
+                lines.shuffle()
+                
+                for (index, line) in lines.enumerated() {
+                    let letters = line.components(separatedBy: ": ")
+                    
+                    let wordsString = letters[0]
+                    let question = letters[1]
+                    
+                    questions += ("\(index + 1). \(question)\n")
+                    
+                    let words = wordsString.components(separatedBy: "|")
+                    var solution = ""
+                    for word in words {
+                        bits.append(word)
+                        solution += word
+                    }
+                    solutions.append(solution)
+                    tips += "\(words.count) letters\n"
+                }
+                
+                cluesLabel.text = questions.trimmingCharacters(in: .whitespacesAndNewlines)
+                resultLabel.text = tips.trimmingCharacters(in: .whitespacesAndNewlines)
+                
+                bits.shuffle()
+                if bits.count == buttons.count {
+                    for i in 0..<bits.count {
+                        buttons[i].setTitle(bits[i], for: .normal)
+                    }
+                }
+            }
+        }
+    }
 
+    
 }
 
 extension UIView {
