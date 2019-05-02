@@ -11,7 +11,11 @@ import UIKit
 class ViewController: UIViewController {
 
     var level = 1
-    var score = 0
+    var score = 0 {
+        didSet {
+            scoreLabel.text = "Score: \(score)"
+        }
+    }
     var scoreLabel: UILabel!
     var cluesLabel: UILabel!
     var resultLabel: UILabel!
