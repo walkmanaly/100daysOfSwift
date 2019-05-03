@@ -137,7 +137,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        loadLevel()
+//        loadLevel()
+        performSelector(inBackground: #selector(loadLevel), with: nil)
         
     }
     
@@ -196,7 +197,8 @@ class ViewController: UIViewController {
     
     @objc func nextLevel(_ ac: UIAlertAction) {
         level += 1
-        loadLevel()
+//        loadLevel()
+        performSelector(inBackground: #selector(loadLevel), with: nil)
         
         solutions.removeAll(keepingCapacity: true)
         for button in buttons {
@@ -212,7 +214,7 @@ class ViewController: UIViewController {
         activitedButton.removeAll()
     }
 
-    func loadLevel() {
+    @objc func loadLevel() {
         
         if let levelFileUrl = Bundle.main.url(forResource: "level\(level)", withExtension: "txt") {
             if let levelString = try? String(contentsOf: levelFileUrl) {
@@ -234,13 +236,15 @@ class ViewController: UIViewController {
                     tips += "\(words.count) letters\n"
                 }
                 
-                cluesLabel.text = questions.trimmingCharacters(in: .whitespacesAndNewlines)
-                resultLabel.text = tips.trimmingCharacters(in: .whitespacesAndNewlines)
-                
-                bits.shuffle()
-                if bits.count == buttons.count {
-                    for i in 0..<bits.count {
-                        buttons[i].setTitle(bits[i], for: .normal)
+                DispatchQueue.main.async { [weak self] in
+                    self?.cluesLabel.text = self?.questions.trimmingCharacters(in: .whitespacesAndNewlines)
+                    self?.resultLabel.text = self?.tips.trimmingCharacters(in: .whitespacesAndNewlines)
+                    
+                    self?.bits.shuffle()
+                    if self?.bits.count == self?.buttons.count {
+                        for i in 0..<(self?.bits.count ?? 0) {
+                            self?.buttons[i].setTitle(self?.bits[i], for: .normal)
+                        }
                     }
                 }
             }
