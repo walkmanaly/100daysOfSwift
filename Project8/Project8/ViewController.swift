@@ -172,7 +172,19 @@ class ViewController: UIViewController {
                 ac.addAction(UIAlertAction(title: "Yes", style: .default, handler: nextLevel))
                 present(ac, animated: true)
             }
+        } else {
+            let ac = UIAlertController(title: "Oops", message: "that is not correct", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Continue", style: .default, handler: wordNotMetch))
+            present(ac, animated: true)
         }
+    }
+    
+    @objc func wordNotMetch(_ action: UIAlertAction) {
+        for button in activitedButton {
+            button.isHidden = false
+        }
+        activitedButton.removeAll()
+        textField.text = ""
     }
     
     @objc func nextLevel(_ ac: UIAlertAction) {
