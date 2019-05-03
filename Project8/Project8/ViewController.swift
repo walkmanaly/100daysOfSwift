@@ -76,6 +76,8 @@ class ViewController: UIViewController {
         resetButton.addTarget(self, action: #selector(resetTapped), for: .touchUpInside)
         
         let buttonsView = UIView()
+        buttonsView.layer.borderWidth = 1
+        buttonsView.layer.borderColor = UIColor.lightGray.cgColor
         buttonsView.translatesAutoresizingMaskIntoConstraints = false
         
         let buttonWidth: Int = 150
