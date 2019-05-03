@@ -14,6 +14,15 @@ class ViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        performSelector(inBackground: #selector(fetchData), with: nil)
+        
+        title = "Pictures List"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareListClicked))
+    }
+    
+    @objc func fetchData() {
         let fm = FileManager.default
         let path = Bundle.main.resourcePath!
         let items = try! fm.contentsOfDirectory(atPath: path)
@@ -25,10 +34,7 @@ class ViewController: UITableViewController {
         }
         picturesStr.sort()
         print(picturesStr)
-        
-        title = "Pictures List"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareListClicked))
+        tableView.performSelector(onMainThread: #selector(UITableView.reloadData), with: nil, waitUntilDone: false)
     }
     
     @objc func shareListClicked() {
