@@ -45,11 +45,15 @@ class ViewController: UITableViewController {
         ac.addAction(UIAlertAction(title: "Commit", style: .default, handler: { [weak ac, weak self] _ in
             if let text = ac?.textFields?[0].text {
                 // get the text from the textfeild
-                self?.petitions.removeAll()
-                for petition in self?.allPetitions ?? [] {
-                    if petition.title.contains(text) {
-                        self?.petitions.append(petition)
-                        self?.tableView.reloadData()
+                DispatchQueue.global(qos: .userInitiated).async {
+                    self?.petitions.removeAll()
+                    for petition in self?.allPetitions ?? [] {
+                        if petition.title.contains(text) {
+                            self?.petitions.append(petition)
+                            DispatchQueue.main.async {
+                                self?.tableView.reloadData()
+                            }
+                        }
                     }
                 }
             }
