@@ -167,7 +167,13 @@ class ViewController: UIViewController {
             textField.text = ""
             score += 1
             
-            if score % 7 == 0 {
+            var status = true
+            for btn in buttons {
+                if btn.isHidden == false {
+                    status = false
+                }
+            }
+            if status {
                 let ac = UIAlertController(title: "Well Done", message: "go to next level", preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "Yes", style: .default, handler: nextLevel))
                 present(ac, animated: true)
@@ -185,6 +191,7 @@ class ViewController: UIViewController {
         }
         activitedButton.removeAll()
         textField.text = ""
+        score -= 1
     }
     
     @objc func nextLevel(_ ac: UIAlertAction) {
@@ -222,12 +229,8 @@ class ViewController: UIViewController {
                     questions += ("\(index + 1). \(question)\n")
                     
                     let words = wordsString.components(separatedBy: "|")
-                    var solution = ""
-                    for word in words {
-                        bits.append(word)
-                        solution += word
-                    }
-                    solutions.append(solution)
+                    bits += words
+                    solutions.append(wordsString.replacingOccurrences(of: "|", with: ""))
                     tips += "\(words.count) letters\n"
                 }
                 
