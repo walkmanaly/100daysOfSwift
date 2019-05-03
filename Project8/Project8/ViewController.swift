@@ -54,6 +54,7 @@ class ViewController: UIViewController {
         resultLabel.font = UIFont.systemFont(ofSize: 24)
         resultLabel.setContentHuggingPriority(UILayoutPriority(1), for: .vertical)
         resultLabel.numberOfLines = 0
+        resultLabel.textAlignment = .right
         resultLabel.text = "result"
         
         textField = UITextField()
@@ -99,12 +100,12 @@ class ViewController: UIViewController {
             scoreLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
             
             cluesLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
-            cluesLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-            cluesLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.6, constant: 0),
+            cluesLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 100),
+            cluesLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.6, constant: -100),
             
             resultLabel.topAnchor.constraint(equalTo: scoreLabel.bottomAnchor),
-            resultLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15),
-            resultLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.4, constant: 0),
+            resultLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -100),
+            resultLabel.widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor, multiplier: 0.4, constant: -100),
             resultLabel.heightAnchor.constraint(equalTo: cluesLabel.heightAnchor),
             
             textField.topAnchor.constraint(equalTo: cluesLabel.bottomAnchor),
