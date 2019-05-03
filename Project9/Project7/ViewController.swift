@@ -25,14 +25,17 @@ class ViewController: UITableViewController {
         } else {
             url = "https://www.hackingwithswift.com/samples/petitions-2.json"
         }
-        if let url = URL(string: url) {
-            if let data = try? Data(contentsOf: url) {
-                parseData(json: data)
-                return
-            }
-        }
         
-        showError()
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            if let url = URL(string: url) {
+                if let data = try? Data(contentsOf: url) {
+                    self?.parseData(json: data)
+                    return
+                }
+            }
+            
+            self?.showError()
+        }
     }
     
     @objc func filterData() {
@@ -54,9 +57,11 @@ class ViewController: UITableViewController {
     }
     
     @objc func showMessage() {
-        let ac = UIAlertController(title: "Tips", message: "the data comes from the We The People API of the Whitehouse.", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Ok", style: .default))
-        present(ac, animated: true)
+        DispatchQueue.main.async { [weak self] in
+            let ac = UIAlertController(title: "Tips", message: "the data comes from the We The People API of the Whitehouse.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Ok", style: .default))
+            self?.present(ac, animated: true)
+        }
     }
     
     func showError() {
@@ -71,7 +76,9 @@ class ViewController: UITableViewController {
         if let petition = try? jsonDecoder.decode(Petitions.self, from: json) {
             petitions = petition.results
             allPetitions = petitions
-            tableView.reloadData()
+            DispatchQueue.main.async { [weak self] in
+                self?.tableView.reloadData()
+            }
         }
     }
 }
