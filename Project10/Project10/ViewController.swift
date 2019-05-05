@@ -72,20 +72,29 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let ac = UIAlertController(title: "Tips", message: "Input name", preferredStyle: .alert)
-        ac.addTextField()
-        
-        ac.addAction(UIAlertAction(title: "Ok", style: .default) {
-            [weak self, weak ac] _ in
-            guard let name = ac?.textFields?[0].text else { return }
-            if let person = self?.people[indexPath.item] {
-                person.name = name
-            }
+        let outerac = UIAlertController(title: "Operation", message: "choose one", preferredStyle: .alert)
+        outerac.addAction(UIAlertAction(title: "Edit", style: .default) { [weak self] _ in
+            let ac = UIAlertController(title: "Tips", message: "Input name", preferredStyle: .alert)
+            ac.addTextField()
+            
+            ac.addAction(UIAlertAction(title: "Ok", style: .default) {
+                [weak self, weak ac] _ in
+                guard let name = ac?.textFields?[0].text else { return }
+                if let person = self?.people[indexPath.item] {
+                    person.name = name
+                }
+                self?.collectionView.reloadData()
+            })
+            ac.addAction(UIAlertAction(title: "cancel", style: .cancel))
+            
+            self?.present(ac, animated: true)
+        })
+        outerac.addAction(UIAlertAction(title: "Delete", style: .default) {
+            [weak self] _ in
+            self?.people.remove(at: indexPath.item)
             self?.collectionView.reloadData()
         })
-        ac.addAction(UIAlertAction(title: "cancel", style: .cancel))
-        
-        present(ac, animated: true)
+        present(outerac, animated: true)
     }
     
     func getPathComponent() -> URL {
