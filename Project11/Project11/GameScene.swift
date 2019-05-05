@@ -17,16 +17,23 @@ class GameScene: SKScene {
         background.zPosition = -1
         addChild(background)
         physicsBody = SKPhysicsBody(edgeLoopFrom: frame)
+        
+        let bouncer = SKSpriteNode(imageNamed: "bouncer")
+        bouncer.physicsBody = SKPhysicsBody(circleOfRadius: bouncer.size.width * 0.5)
+        bouncer.physicsBody?.restitution = 0.4
+        bouncer.physicsBody?.isDynamic = false // 不设置为fale，会滚动
+        bouncer.position = CGPoint(x: 512, y: 0)
+        addChild(bouncer)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let position = touch.location(in: self)
         
-        let box = SKSpriteNode(color: .orange, size: CGSize(width: 64, height: 64))
-        
-        box.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 64, height: 64))
-        box.position = position
-        addChild(box)
+        let ball = SKSpriteNode(imageNamed: "ballRed")
+        ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width * 0.5)
+        ball.physicsBody?.restitution = 0.4
+        ball.position = position
+        addChild(ball)
     }
 }
