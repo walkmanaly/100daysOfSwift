@@ -65,7 +65,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let touch = touches.first else { return }
         let position = touch.location(in: self)
         
-        guard position.y > 650 else { return }
         
         let objects = nodes(at: position)
         if objects.contains(editLabel) {
@@ -82,6 +81,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 addChild(box)
             } else {
+                guard position.y > 650 else { return }
                 guard let randomBall = balls.randomElement() else { return }
                 let ball = SKSpriteNode(imageNamed: randomBall)
                 ball.physicsBody = SKPhysicsBody(circleOfRadius: ball.size.width * 0.5)
