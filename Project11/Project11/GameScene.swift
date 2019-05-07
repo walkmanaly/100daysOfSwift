@@ -65,6 +65,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         guard let touch = touches.first else { return }
         let position = touch.location(in: self)
         
+        guard position.y > 650 else { return }
+        
         let objects = nodes(at: position)
         if objects.contains(editLabel) {
             editingMode.toggle()
