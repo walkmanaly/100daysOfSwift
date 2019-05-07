@@ -16,6 +16,13 @@ class ViewController: UICollectionViewController {
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPersonImage))
+        
+        let defaults = UserDefaults.standard
+        if let peopleData = defaults.data(forKey: "people") {
+            if let peopleSave = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(peopleData) as? [Person] {
+                people = peopleSave
+            }
+        }
     }
 
     @objc func addPersonImage() {
@@ -53,6 +60,13 @@ extension ViewController {
         
         return cell
     }
+    
+    func save() {
+        if let data = try? NSKeyedArchiver.archivedData(withRootObject: people, requiringSecureCoding: false) {
+            let defaults = UserDefaults.standard
+            defaults.setValue(data, forKey: "people")
+        }
+    }
 }
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -67,7 +81,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         
         let person = Person(name: "Unknow", image: imageString)
         people.append(person)
-        
+        save()
         collectionView.reloadData()
         
         dismiss(animated: true)
@@ -86,6 +100,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
                 if let person = self?.people[indexPath.item] {
                     person.name = name
                 }
+                self?.save()
                 self?.collectionView.reloadData()
             })
             ac.addAction(UIAlertAction(title: "cancel", style: .cancel))
@@ -95,6 +110,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         outerac.addAction(UIAlertAction(title: "Delete", style: .default) {
             [weak self] _ in
             self?.people.remove(at: indexPath.item)
+            self?.save()
             self?.collectionView.reloadData()
         })
         present(outerac, animated: true)
