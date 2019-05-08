@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UITableViewController {
 
     var picturesStr = [String]()
+    var visitCounts = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +31,9 @@ class ViewController: UITableViewController {
         for item in items {
             if item.hasPrefix("nssl") {
                 picturesStr.append(item)
+                let defaults = UserDefaults.standard
+                let count = defaults.integer(forKey: item)
+                visitCounts.append(count)
             }
         }
         picturesStr.sort()
@@ -54,6 +58,7 @@ extension ViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "picture", for: indexPath)
         cell.textLabel?.font = UIFont.systemFont(ofSize: 30.0, weight: UIFont.Weight.bold)
         cell.textLabel?.text = picturesStr[indexPath.row]
+        cell.detailTextLabel?.text = String(visitCounts[indexPath.row])
         return cell
     }
     
@@ -61,6 +66,10 @@ extension ViewController {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "detail") as? DetailViewController {
             vc.selecedImage = picturesStr[indexPath.row]
             vc.headTitle = "Picture \(picturesStr.firstIndex(of: picturesStr[indexPath.row])! + 1) of \(picturesStr.count)"
+            var counts = visitCounts[indexPath.row]
+            counts += 1
+            let defaults = UserDefaults.standard
+            defaults.set(counts, forKey: picturesStr[indexPath.row])
             navigationController?.pushViewController(vc, animated: true)
         }
     }
