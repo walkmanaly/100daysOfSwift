@@ -16,6 +16,14 @@ class ViewController: UICollectionViewController {
         super.viewDidLoad()
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addPersonImage))
+        
+        let defaults = UserDefaults.standard
+        if let decodeData = defaults.data(forKey: "people") {
+            let jsonDecoder = JSONDecoder()
+            if let diskPeople = try? jsonDecoder.decode([Person].self, from: decodeData) {
+                people = diskPeople
+            }
+        }
     }
 
     @objc func addPersonImage() {
@@ -27,6 +35,14 @@ class ViewController: UICollectionViewController {
         }
         
         present(picker, animated: true)
+    }
+    
+    func save() {
+        let defaults = UserDefaults.standard
+        let jsonEnconder = JSONEncoder()
+        if let encodeData = try? jsonEnconder.encode(people) {
+            defaults.setValue(encodeData, forKey: "people")
+        }
     }
 
 }
@@ -67,7 +83,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         
         let person = Person(name: "Unknow", image: imageString)
         people.append(person)
-        
+        save()
         collectionView.reloadData()
         
         dismiss(animated: true)
@@ -86,6 +102,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
                 if let person = self?.people[indexPath.item] {
                     person.name = name
                 }
+                self?.save()
                 self?.collectionView.reloadData()
             })
             ac.addAction(UIAlertAction(title: "cancel", style: .cancel))
@@ -95,6 +112,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         outerac.addAction(UIAlertAction(title: "Delete", style: .default) {
             [weak self] _ in
             self?.people.remove(at: indexPath.item)
+            self?.save()
             self?.collectionView.reloadData()
         })
         present(outerac, animated: true)
