@@ -21,6 +21,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let defaults = UserDefaults.standard
+        let saveScore = defaults.integer(forKey: "score")
+        score = saveScore
+        
         countries += ["estonia", "france", "germany", "ireland", "italy", "monaco", "nigeria", "poland", "russia", "spain", "spain", "uk", "us"]
         
         button1.layer.borderWidth = 1
@@ -67,6 +71,9 @@ class ViewController: UIViewController {
                 score -= 1
                 ac.message = "Wrong! That’s the flag of \(countries[sender.tag])"
             }
+            
+            let defaults = UserDefaults.standard
+            defaults.set(score, forKey: "score")
             ac.addAction(continueAv)
         } else {
             ac.message = "This is the last question, your total score is \(score)"
