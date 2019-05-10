@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UITableViewController {
     
-    var images = [String]()
+    var images = [Picture]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,8 @@ class ViewController: UITableViewController {
         if let content = try? fm.contentsOfDirectory(atPath: bundle) {
             for image in content {
                 if image.hasPrefix("nssl") {
-                    images.append(image)
+                    let picture = Picture(name: "pic", image: image)
+                    images.append(picture)
                 }
             }
         }
@@ -51,8 +52,20 @@ extension ViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = images[indexPath.row]
-        cell.imageView?.image = UIImage(named: images[indexPath.row])
+        let pic = images[indexPath.row]
+        
+        cell.textLabel?.text = pic.name
+        
+        var image = UIImage()
+        if pic.image.contains("nssl") {
+            image = UIImage(named: pic.image) ?? UIImage()
+        } else {
+            let path = getPath().appendingPathComponent(pic.image)
+            if let data = try? Data(contentsOf: path) {
+                image = UIImage(data: data) ?? UIImage()
+            }
+        }
+        cell.imageView?.image = image
         
         return cell
     }
@@ -69,7 +82,8 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         if let image = info[.editedImage] as? UIImage {
             if let jpegData = image.jpegData(compressionQuality: 0.8) {
                 try? jpegData.write(to: path)
-                images.append(uuid)
+                let pic = Picture(name: "custom", image: uuid)
+                images.append(pic)
                 self.tableView.reloadData()
             }
         }
