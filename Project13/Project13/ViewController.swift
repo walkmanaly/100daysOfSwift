@@ -89,11 +89,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func save(_ sender: Any) {
-        
+        guard let image = imageView.image else { return }
+        UIImageWriteToSavedPhotosAlbum(image, self, #selector(save(_:didFinishSavedWithError:context:)), nil)
     }
     
     @IBAction func intenstyChanged(_ sender: Any) {
         applyProcessing()
+    }
+    
+    @objc func save(_ image: UIImage, didFinishSavedWithError error: Error?, context: UnsafeRawPointer) {
+        if let error = error {
+            let ac = UIAlertController(title: "Oops", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "Ok", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "save!", message: "succeed", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "ok", style: .default))
+            present(ac, animated: true)
+        }
     }
 }
 
