@@ -10,17 +10,32 @@ import UIKit
 import CoreImage
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var slider: UISlider!
+    
+    @IBOutlet weak var radius: UISlider!
+    @IBOutlet weak var scale: UISlider!
+    @IBOutlet weak var center: UISlider!
+    
+    @IBOutlet weak var changeFilter: UIButton!
+    
     var currentImage: UIImage!
     var context : CIContext!
     var currentFilter: CIFilter!
+    
+    var radiusFilter: CIFilter!
+    var scaleFilter: CIFilter!
+    var centerFilter: CIFilter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         context = CIContext()
         currentFilter = CIFilter(name: "CISepiaTone")
+        radiusFilter = CIFilter(name: "CIGaussianBlur")
+        scaleFilter = CIFilter(name: "CIUnsharpMask")
+        centerFilter = CIFilter(name: "CITwirlDistortion")
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(importPicture))
     }
@@ -81,6 +96,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         guard currentImage != nil else { return }
         guard let title = action.title else { return }
         
+        changeFilter.setTitle(title, for: .normal)
+        
         currentFilter = CIFilter(name: title)
         let beginImage = CIImage(image: currentImage)
         currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
@@ -89,12 +106,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     @IBAction func save(_ sender: Any) {
-        guard let image = imageView.image else { return }
-        UIImageWriteToSavedPhotosAlbum(image, self, #selector(save(_:didFinishSavedWithError:context:)), nil)
+        if let image = imageView.image {
+            UIImageWriteToSavedPhotosAlbum(image, self, #selector(save(_:didFinishSavedWithError:context:)), nil)
+        } else {
+            let ac = UIAlertController(title: "Tips", message: "no image", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
     
     @IBAction func intenstyChanged(_ sender: Any) {
         applyProcessing()
+    }
+    @IBAction func radiusChanged(_ sender: Any) {
+    }
+    @IBAction func scaleChanged(_ sender: Any) {
+    }
+    @IBAction func centerChanged(_ sender: Any) {
     }
     
     @objc func save(_ image: UIImage, didFinishSavedWithError error: Error?, context: UnsafeRawPointer) {
