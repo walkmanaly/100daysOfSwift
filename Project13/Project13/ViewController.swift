@@ -54,6 +54,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         currentImage = image
         applyProcessing()
         dismiss(animated: true)
+        
+        UIView.animate(withDuration: 1, delay: 5, options: [], animations: {
+            self.imageView.alpha = 1
+        })
     }
     
     func applyProcessing() {

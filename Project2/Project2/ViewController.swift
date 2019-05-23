@@ -56,6 +56,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func buttonTapped(_ sender: UIButton) {
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: [], animations: {
+            sender.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        }) { (finished) in
+            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: [], animations: {
+                sender.transform = .identity
+            })
+        }
         let continueAv = UIAlertAction(title: "Continue", style: .default, handler: askQuestion)
         let finishAv = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
         let ac = UIAlertController(title: "Score", message: "", preferredStyle: .alert)
