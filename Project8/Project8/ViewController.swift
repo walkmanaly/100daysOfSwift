@@ -148,8 +148,13 @@ class ViewController: UIViewController {
         }
         textField.text = textField.text?.appending(title)
         
-        sender.isHidden = true
         activitedButton.append(sender)
+        
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 5, options: [], animations: {
+            sender.alpha = 0
+        }) { (finish) in
+            sender.isHidden = true
+        }
         
     }
     
@@ -209,6 +214,7 @@ class ViewController: UIViewController {
     @objc func resetTapped(_ sender: UIButton) {
         for button in activitedButton {
             button.isHidden = false
+            button.alpha = 1
         }
         textField.text = ""
         activitedButton.removeAll()
