@@ -10,11 +10,11 @@ import MapKit
 import UIKit
 
 class Capital: NSObject, MKAnnotation {
-    var capital: String?
+    var title: String?
     var coordinate: CLLocationCoordinate2D
     var info: String?
     init(capital: String, coordinate: CLLocationCoordinate2D, info: String) {
-        self.capital = capital;
+        self.title = capital;
         self.coordinate = coordinate
         self.info = info
     }

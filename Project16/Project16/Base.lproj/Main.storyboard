@@ -21,7 +21,7 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nPe-gh-qKY">
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="SB4-F3-c9e"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="0LA-ez-NGn"/>
                                 </connections>
                             </mapView>
                         </subviews>
@@ -36,7 +36,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Wxg-kG-EvP"/>
                     <connections>
-                        <outlet property="mapView" destination="nPe-gh-qKY" id="ZeT-BS-Zg4"/>
+                        <outlet property="mapView" destination="nPe-gh-qKY" id="8g3-zx-EEG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

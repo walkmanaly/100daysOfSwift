@@ -15,13 +15,40 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let beijin = Capital(capital: "beijing", coordinate: CLLocationCoordinate2D(latitude: 116.46, longitude: 40), info: "in china")
-        let tokyo = Capital(capital: "tokyo", coordinate: CLLocationCoordinate2D(latitude: 138.4, longitude: 35), info: "in japan")
-        let newYork = Capital(capital: "newyork", coordinate: CLLocationCoordinate2D(latitude: 38.4, longitude: 23), info: "in amercan")
+        let beijin = Capital(capital: "oslo", coordinate: CLLocationCoordinate2D(latitude: 59.95, longitude: 10.75), info: "in china")
+        let tokyo = Capital(capital: "paris", coordinate: CLLocationCoordinate2D(latitude: 48.8567, longitude: 2.3508), info: "in japan")
+        let newYork = Capital(capital: "rome", coordinate: CLLocationCoordinate2D(latitude: 41.9, longitude: 12.5), info: "in amercan")
         
         mapView.addAnnotations([beijin, tokyo, newYork])
     }
 
 
+}
+
+extension ViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is Capital else { return nil }
+        let identifier = "capital"
+        var annotationView = mapView .dequeueReusableAnnotationView(withIdentifier: identifier)
+        if annotationView == nil {
+            annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+            let btn = UIButton(type: .detailDisclosure)
+            annotationView?.rightCalloutAccessoryView = btn
+        } else {
+            annotationView?.annotation = annotation
+        }
+        return annotationView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        guard let capital = view.annotation as? Capital else { return }
+        let title = capital.title
+        let info = capital.info
+        
+        let ac = UIAlertController(title: title, message: info, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default))
+        present(ac, animated: true)
+    }
 }
 
