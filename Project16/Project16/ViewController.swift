@@ -50,5 +50,18 @@ extension ViewController: MKMapViewDelegate {
         ac.addAction(UIAlertAction(title: "Ok", style: .default))
         present(ac, animated: true)
     }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let capital = view.annotation as? Capital else { return }
+        let title = capital.title
+        let info = capital.info
+        let ac = UIAlertController(title: title, message: info, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            if (UIApplication.shared.canOpenURL(URL(string: "iosamap://")!)) {
+                UIApplication.shared.open(URL(string: "iosamap://")!, options: [:], completionHandler: nil)
+            }
+        }))
+        present(ac, animated: true)
+    }
 }
 
