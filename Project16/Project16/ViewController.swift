@@ -15,11 +15,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let beijin = Capital(capital: "oslo", coordinate: CLLocationCoordinate2D(latitude: 59.95, longitude: 10.75), info: "in china")
-        let tokyo = Capital(capital: "paris", coordinate: CLLocationCoordinate2D(latitude: 48.8567, longitude: 2.3508), info: "in japan")
-        let newYork = Capital(capital: "rome", coordinate: CLLocationCoordinate2D(latitude: 41.9, longitude: 12.5), info: "in amercan")
+        let oslo = Capital(capital: "oslo", coordinate: CLLocationCoordinate2D(latitude: 59.95, longitude: 10.75), info: "in oslo")
+        let paris = Capital(capital: "paris", coordinate: CLLocationCoordinate2D(latitude: 48.8567, longitude: 2.3508), info: "in franch")
+        let rome = Capital(capital: "rome", coordinate: CLLocationCoordinate2D(latitude: 41.9, longitude: 12.5), info: "in rome")
         
-        mapView.addAnnotations([beijin, tokyo, newYork])
+        mapView.addAnnotations([oslo, paris, rome])
     }
 
 
