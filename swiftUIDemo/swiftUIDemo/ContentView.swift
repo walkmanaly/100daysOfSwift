@@ -28,13 +28,25 @@ class Datasource: BindableObject {
     
 }
 
+struct DetailView: View {
+    var selecedImage: String
+    var body: some View {
+        let img = UIImage(named: selecedImage)!
+        return Image(uiImage: img)
+        .resizable()
+        .aspectRatio(contentMode: .fit)
+    }
+}
+
 struct ContentView : View {
     @ObjectBinding var datasource = Datasource()
     
     var body: some View {
         NavigationView {
             List(datasource.pictures.identified(by: \.self)) { picture in
-                Text(picture)
+                NavigationButton(destination: DetailView(selecedImage: picture), isDetail: true) {
+                    Text(picture)
+                }
             }.navigationBarTitle(Text("List"))
         }
     }
