@@ -30,11 +30,18 @@ class Datasource: BindableObject {
 
 struct DetailView: View {
     var selecedImage: String
+    @State private var hideNavigationBar = false
+    
     var body: some View {
         let img = UIImage(named: selecedImage)!
         return Image(uiImage: img)
-        .resizable()
-        .aspectRatio(contentMode: .fit)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .navigationBarTitle(Text(selecedImage), displayMode: .inline)
+            .navigationBarHidden(hideNavigationBar)
+            .tapAction {
+                self.hideNavigationBar.toggle()
+        }
     }
 }
 
