@@ -9,6 +9,10 @@
 import SwiftUI
 
 struct ContentView : View {
+    
+    @State private var isPresent = false
+    @State private var isOn = false
+    
     var body: some View {
         VStack {
             Button(action: {}) {
@@ -53,14 +57,25 @@ struct ContentView : View {
             
             Divider()
             
-            Button(action: {}) {
+            Button(action: buttonClick) {
                 // 随意定制按钮样式
                 VStack {
                     Image(systemName: "plus")
                     Text("Toast")
                 }
+                }
+                .presentation($isPresent) {
+                    Alert(title: Text("tip"), message: Text("Oops"), dismissButton: .default(Text("OK")))
             }
+            
+            Spacer()
         }
+    }
+    
+    
+    func buttonClick() {
+        print("hello")
+        self.isPresent = true
     }
 }
 
