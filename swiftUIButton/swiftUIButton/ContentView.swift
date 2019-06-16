@@ -50,6 +50,16 @@ struct ContentView : View {
                 }
                 .padding()
                 .shadow(radius: 15, x: 1, y: 1)
+            
+            Divider()
+            
+            Button(action: {}) {
+                // 随意定制按钮样式
+                VStack {
+                    Image(systemName: "plus")
+                    Text("Toast")
+                }
+            }
         }
     }
 }
