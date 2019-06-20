@@ -37,7 +37,14 @@ struct ContentView : View {
                 Text("\(cup) cup")
             }
             Spacer()
-        }.padding()
+        }
+            .navigationBarTitle(Text("Bed Time"))
+            .navigationBarItems(trailing:
+                Button(action: {}) {
+                    Text("caculate")
+                }
+            )
+            .padding()
     }
 }
 
